@@ -51,7 +51,7 @@ export function PhotoGrid({ photos, onChange, error }: { photos: string[]; onCha
           const src = photos[i];
           if (src)
             return (
-              <div key={i} className="group relative aspect-[3/4] overflow-hidden rounded-[22px] bg-char">
+              <div key={i} className="group relative aspect-[3/4] overflow-hidden rounded-[10px] bg-char">
                 <Photo src={src} alt={i === 0 ? "Main photo" : `Photo ${i + 1}`} className="size-full" />
                 {i === 0 ? (
                   <span className="absolute bottom-2 left-2 rounded-md bg-ink/80 px-1.5 py-0.5 text-[10.5px] font-medium">Main</span>
@@ -80,7 +80,7 @@ export function PhotoGrid({ photos, onChange, error }: { photos: string[]; onCha
               disabled={!isNext || busy}
               onClick={() => input.current?.click()}
               className={cx(
-                "grid aspect-[3/4] place-items-center rounded-[22px] border-2 border-dashed text-mute transition-colors",
+                "grid aspect-[3/4] place-items-center rounded-[10px] border-2 border-dashed text-mute transition-colors",
                 isNext ? "border-line-hi hover:border-ember hover:text-cream" : "border-line opacity-40",
                 error && isNext && "border-bad/70",
               )}
@@ -111,7 +111,7 @@ export function IntentionPicker({ value, onChange, error }: { value: Intention[]
               type="button"
               aria-pressed={on}
               onClick={() => onChange(on ? value.filter((x) => x !== i.id) : [...value, i.id])}
-              className={cx("rounded-[20px] p-4 text-left transition-colors", on ? "bg-cream text-ink" : "bg-char hover:bg-smoke")}
+              className={cx("rounded-[10px] p-4 text-left transition-colors", on ? "bg-cream text-ink" : "bg-char hover:bg-smoke")}
             >
               <span className="flex items-center justify-between text-sm font-semibold">
                 {i.label}
@@ -204,7 +204,7 @@ export function PrivacyControls({ value, onChange }: { value: PrivacySettings; o
         <p className="mt-0.5 text-xs text-mute">Your precise location is never shown to anyone.</p>
         <div className="mt-3 grid gap-2">
           {LOC.map((l) => (
-            <label key={l.id} className={cx("flex cursor-pointer gap-3 rounded-[20px] p-4", value.location === l.id ? "bg-smoke" : "bg-char")}>
+            <label key={l.id} className={cx("flex cursor-pointer gap-3 rounded-[10px] p-4", value.location === l.id ? "bg-smoke" : "bg-char")}>
               <input type="radio" name="loc" className="mt-1 accent-ember" checked={value.location === l.id} onChange={() => onChange({ ...value, location: l.id })} />
               <span>
                 <span className="block text-sm font-medium">{l.label}</span>
@@ -234,7 +234,7 @@ export function PrivacyControls({ value, onChange }: { value: PrivacySettings; o
 
       <fieldset>
         <legend className="text-[13px] font-medium">Who can see each part of your profile</legend>
-        <div className="mt-3 divide-y divide-line rounded-[20px] bg-char">
+        <div className="mt-3 divide-y divide-line rounded-[10px] bg-char">
           {(
             [
               ["bio", "About you"],

@@ -138,13 +138,13 @@ export default function SwipeDeck({ people, onOpenFilters }: { people: Profile[]
         <div className="relative pb-10">
           <div className="relative aspect-[3/4.3]">
             {nextUp && (
-              <div className="absolute inset-x-5 -top-3 bottom-6 overflow-hidden rounded-[36px] opacity-45 ring-1 ring-white/10" aria-hidden>
+              <div className="absolute inset-x-5 -top-3 bottom-6 overflow-hidden rounded-[10px] opacity-45 ring-1 ring-white/10" aria-hidden>
                 <Photo src={nextUp.photos[0]} alt="" className="size-full" />
               </div>
             )}
             <motion.div
               key={p.id}
-              className="absolute inset-0 cursor-grab touch-pan-y overflow-hidden rounded-[36px] bg-char shadow-[0_40px_80px_-30px_rgb(0_0_0/0.9)] ring-1 ring-white/10 active:cursor-grabbing"
+              className="absolute inset-0 cursor-grab touch-pan-y overflow-hidden rounded-[10px] bg-char shadow-[0_40px_80px_-30px_rgb(0_0_0/0.9)] ring-1 ring-white/10 active:cursor-grabbing"
               style={{ x, rotate }}
               initial={{ scale: 0.92, y: 18, opacity: 0.4 }}
               animate={{ scale: 1, y: 0, opacity: 1 }}
@@ -178,10 +178,10 @@ export default function SwipeDeck({ people, onOpenFilters }: { people: Profile[]
                   <IconButton icon={MoreVerticalIcon} label="More options" tone="glass" onClick={() => setMenu((m) => !m)} />
                   {menu && (
                     <div className="glass-dark absolute top-12 left-0 z-10 w-48 overflow-hidden rounded-2xl p-1.5 text-sm">
-                      <button type="button" onClick={() => { setMenu(false); setReporting(p); }} className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 hover:bg-white/10">
+                      <button type="button" onClick={() => { setMenu(false); setReporting(p); }} className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 hover:bg-cream/85/10">
                         <Icon icon={Flag02Icon} size={16} /> Report
                       </button>
-                      <button type="button" onClick={block} className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 text-bad hover:bg-white/10">
+                      <button type="button" onClick={block} className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 text-bad hover:bg-cream/85/10">
                         <Icon icon={UserBlock01Icon} size={16} /> Block
                       </button>
                     </div>
@@ -246,7 +246,7 @@ export default function SwipeDeck({ people, onOpenFilters }: { people: Profile[]
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.86 }}
                 transition={{ type: "spring", stiffness: 500, damping: 15 }}
-                className="relative grid h-16 w-[84px] place-items-center rounded-full bg-ember text-ink shadow-[0_10px_30px_-6px_rgb(255_90_54/0.7)]"
+                className="relative grid h-16 w-[84px] place-items-center rounded-full bg-ember text-ink shadow-[0_10px_30px_-6px_rgb(180_71_44/0.45)]"
               >
                 <Icon icon={FavouriteIcon} size={26} stroke={2.4} />
                 <Burst k={burst} />
@@ -288,11 +288,11 @@ function ProfileAside({ p }: { p: Profile }) {
       {p.photos.length > 1 && (
         <div className="grid grid-cols-3 gap-3">
           {p.photos.slice(1, 4).map((src) => (
-            <Photo key={src} src={src} alt="" className="aspect-square w-full rounded-[22px]" />
+            <Photo key={src} src={src} alt="" className="aspect-square w-full rounded-[10px]" />
           ))}
         </div>
       )}
-      <div className="surface rounded-[28px] p-6">
+      <div className="surface rounded-[10px] p-6">
         <div className="flex items-center justify-between">
           <h2 className="text-lg font-semibold">About me</h2>
           <Link href={`/people/${p.id}`} className="text-sm text-mute hover:text-cream">
@@ -301,7 +301,7 @@ function ProfileAside({ p }: { p: Profile }) {
         </div>
         <p className="mt-3 text-[15px] leading-relaxed text-cream/80">{p.bio || "No bio yet."}</p>
       </div>
-      <div className="surface rounded-[28px] p-6">
+      <div className="surface rounded-[10px] p-6">
         <h2 className="text-lg font-semibold">More info</h2>
         <div className="mt-4 flex flex-wrap gap-2">
           {p.intentions.map((i) => (
@@ -318,7 +318,7 @@ function ProfileAside({ p }: { p: Profile }) {
         </div>
       </div>
       {p.provider && (
-        <Link href={`/people/${p.id}#book`} className="surface block rounded-[28px] p-6 transition-colors hover:bg-char">
+        <Link href={`/people/${p.id}#book`} className="surface block rounded-[10px] p-6 transition-colors hover:bg-char">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold">Offers experiences</h2>
             <Stars value={p.provider.rating.average} count={p.provider.rating.count} />

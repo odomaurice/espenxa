@@ -39,13 +39,13 @@ export default function MyProfile() {
     { href: "/connections", label: "Connections", sub: "Matches, requests and saved profiles", icon: UserGroupIcon },
     { href: "/settings", label: "Settings", sub: "Privacy, trusted contacts and account", icon: Settings02Icon },
     { href: "/safety", label: "Safety centre", sub: "Guidelines, reporting and help", icon: Shield01Icon },
-    { href: "/", label: "Meet homepage", sub: "Back to the public site", icon: Globe02Icon },
+    { href: "/", label: "espenxa homepage", sub: "Back to the public site", icon: Globe02Icon },
   ];
 
   return (
     <div className="grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[minmax(0,420px)_1fr]">
       <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} className="space-y-3 lg:sticky lg:top-8 lg:self-start">
-        <div className="relative overflow-hidden rounded-[36px] bg-char">
+        <div className="relative overflow-hidden rounded-[10px] bg-char">
           {p.photos[0] ? <Photo src={p.photos[0]} alt="Your main photo" className="aspect-[3/4] w-full" /> : <div className="aspect-[3/4] w-full" />}
           <div className="photo-shade absolute inset-0" />
           <Link href="/onboarding?step=photos" className="glass-dark absolute top-4 right-4 flex h-10 items-center gap-2 rounded-full px-4 text-sm font-medium">
@@ -77,7 +77,7 @@ export default function MyProfile() {
       </motion.div>
 
       <div className="space-y-4">
-        <section className="surface rounded-[28px] p-6">
+        <section className="surface rounded-[10px] p-6">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold">About me</h2>
             <Link href="/onboarding?step=about" className="text-sm text-mute hover:text-cream">
@@ -104,7 +104,7 @@ export default function MyProfile() {
           {links.map((l, i) => (
             <motion.li key={l.href} initial={{ opacity: 0, x: 16 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 + i * 0.05 }}>
               <Lift y={-2} scale={1.005}>
-                <Link href={l.href} className="surface flex items-center gap-4 rounded-[22px] p-4 transition-colors hover:bg-char">
+                <Link href={l.href} className="surface flex items-center gap-4 rounded-[10px] p-4 transition-colors hover:bg-char">
                   <span className="grid size-11 place-items-center rounded-full bg-char">
                     <Icon icon={l.icon} size={19} />
                   </span>

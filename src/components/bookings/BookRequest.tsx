@@ -97,7 +97,7 @@ function Form({ p }: { p: Profile }) {
                 const ok = available.includes(h);
                 const on = hours === h;
                 return (
-                  <motion.button key={h} type="button" disabled={!ok} aria-pressed={on} whileTap={ok ? { scale: 0.97 } : undefined} onClick={() => setHours(h)} className={cx("relative rounded-[20px] p-4 text-left transition-colors disabled:opacity-35", on ? "bg-cream text-ink" : "bg-char hover:bg-smoke")}>
+                  <motion.button key={h} type="button" disabled={!ok} aria-pressed={on} whileTap={ok ? { scale: 0.97 } : undefined} onClick={() => setHours(h)} className={cx("relative rounded-[10px] p-4 text-left transition-colors disabled:opacity-35", on ? "bg-cream text-ink" : "bg-char hover:bg-smoke")}>
                     <span className="flex items-center gap-1.5 text-sm font-medium">
                       <Icon icon={Clock01Icon} size={15} /> {hoursLabel(h)}
                     </span>
@@ -129,7 +129,7 @@ function Form({ p }: { p: Profile }) {
         </div>
 
         <aside className="space-y-4 lg:sticky lg:top-8 lg:self-start">
-          <div className="surface rounded-[28px] p-5">
+          <div className="surface rounded-[10px] p-5">
             <div className="flex items-center gap-3.5">
               <Avatar src={p.photos[0]} name={p.displayName} size={56} ring />
               <div className="min-w-0 flex-1">
@@ -158,7 +158,7 @@ function Form({ p }: { p: Profile }) {
                 </dd>
               </div>
             </dl>
-            <div className="mt-5 flex items-baseline justify-between rounded-[20px] bg-char p-4">
+            <div className="mt-5 flex items-baseline justify-between rounded-[10px] bg-char p-4">
               <span className="text-sm text-mute">Price</span>
               <motion.span key={hours} initial={{ y: 8, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="text-2xl font-semibold tabular">
                 {free ? "Free" : money(rate?.price)}
@@ -168,7 +168,7 @@ function Form({ p }: { p: Profile }) {
             <Button variant="accent" size="lg" className="mt-5 w-full" loading={busy} onClick={submit}>
               Send request
             </Button>
-            <p className="mt-3 text-center text-xs text-faint">No charge until {p.displayName} accepts and you pay through Meet.</p>
+            <p className="mt-3 text-center text-xs text-faint">No charge until {p.displayName} accepts and you pay through espenxa.</p>
           </div>
           <p className="flex items-start gap-2 px-2 text-xs leading-relaxed text-faint">
             <Icon icon={Shield01Icon} size={15} className="mt-px shrink-0" /> A booking is for time and company. It never includes physical contact, and consent is never part of a payment.

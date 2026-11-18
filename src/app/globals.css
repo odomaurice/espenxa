@@ -1,62 +1,66 @@
 @import "tailwindcss";
 
 /*
- * Meet design tokens. Dark only. Neutral near-black surfaces stepped by
- * lightness (ink < coal < char < smoke), near-white type, one brand accent:
- * ember. Soft, large radii; photos carry the colour.
- * Contrast on ink: cream 18:1, mute 7.4:1, ember 6.2:1.
+ * espenxa design tokens. Clean editorial retail: white page, near-black
+ * type, quiet greys, one accent (ember, a deep terracotta) used sparingly.
+ * Serif headings at regular weight, plain sans body. Photos carry the colour.
+ * Token names are roles, not colours: `ink` is the page, `cream` is the
+ * text, `coal < char < smoke` step the surfaces.
+ * Contrast on white: cream 17:1, mute 6.4:1, ember 5.6:1.
  */
 @theme {
-  --color-ink: #0a0a0b;
-  --color-coal: #141416;
-  --color-char: #1c1c1f;
-  --color-smoke: #2a2a2e;
-  --color-line: rgb(255 255 255 / 0.07);
-  --color-line-hi: rgb(255 255 255 / 0.13);
-  --color-mute: #a1a1a8;
-  --color-faint: #6b6b73;
-  --color-cream: #f6f6f7;
+  --color-ink: #ffffff;
+  --color-coal: #ffffff;
+  --color-char: #f5f4f2;
+  --color-smoke: #e8e6e2;
+  --color-line: rgb(24 24 24 / 0.1);
+  --color-line-hi: rgb(24 24 24 / 0.2);
+  --color-mute: #5e5e5e;
+  --color-faint: #8a8a8a;
+  --color-cream: #181818;
 
-  --color-ember: #ff5a36;
-  --color-ember-hi: #ff7350;
-  --color-ember-deep: #e5401d;
-  --color-bubble-mine: #46251a;
-  --color-blush: #ff8fb1;
+  --color-ember: #b4472c;
+  --color-ember-hi: #c5573a;
+  --color-ember-deep: #96391f;
+  --color-bubble-mine: #f5ddd0;
+  --color-blush: #e8a0a8;
 
-  --color-ok: #3ddc84;
-  --color-warn: #f5b83d;
-  --color-bad: #ff5c5c;
-  --color-info: #3aa4ff;
+  --color-ok: #1d8a4b;
+  --color-warn: #a86400;
+  --color-bad: #c43434;
+  --color-info: #2563b5;
 
-  /* Provider ranks */
-  --color-bronze: #d09363;
-  --color-silver: #cfd3d9;
-  --color-gold: #f2c94c;
-  --color-platinum: #8fe3db;
-  --color-diamond: #a8b6ff;
+  /* Companion levels */
+  --color-bronze: #9a5b2e;
+  --color-silver: #69727e;
+  --color-gold: #a67800;
+  --color-platinum: #1d877d;
+  --color-diamond: #4f5bd5;
 
-  /* Chart categorical slots, fixed order. Validated (dataviz validator, dark,
-     surface #141416): CVD worst adjacent 8.4, normal-vision 19.3, all >= 3:1. */
-  --color-series-1: #3987e5;
-  --color-series-2: #d95926;
-  --color-series-3: #199e70;
-  --color-series-4: #c98500;
-  --color-series-5: #d55181;
+  /* Chart categorical slots, fixed order. Validated (dataviz validator, light,
+     surface #ffffff): CVD worst adjacent 9.1, normal-vision 19.6. Slots 3 to 5
+     sit below 3:1, so every chart ships a legend and a table view. */
+  --color-series-1: #2a78d6;
+  --color-series-2: #eb6834;
+  --color-series-3: #1baf7a;
+  --color-series-4: #eda100;
+  --color-series-5: #e87ba4;
   --color-series-6: #0ca30c;
-  --color-series-other: #4a4a52;
-  --color-grid: #232327;
+  --color-series-other: #bdbbb7;
+  --color-grid: #eeece9;
 
-  --radius-card: 28px;
-  --radius-panel: 24px;
+  --radius-card: 10px;
+  --radius-panel: 10px;
 }
 
 @theme inline {
-  --font-sans: var(--font-general), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-general), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-gelasio), Georgia, "Times New Roman", serif;
+  --font-mono: var(--font-courier), ui-monospace, monospace;
 }
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 @layer base {
@@ -90,7 +94,7 @@
   input[type="date"]::-webkit-calendar-picker-indicator,
   input[type="time"]::-webkit-calendar-picker-indicator,
   input[type="datetime-local"]::-webkit-calendar-picker-indicator {
-    filter: invert(0.85);
+    filter: none;
   }
 }
 
@@ -130,23 +134,59 @@ dialog[open]::backdrop {
   }
 }
 
-/* Bold geometric headline: names, titles, big numbers. */
+/* Editorial serif headline at regular weight, tightly tracked: titles, names, big numbers. */
 @utility display {
   font-family: var(--font-display);
-  font-weight: 600;
-  letter-spacing: -0.025em;
-  line-height: 1.02;
+  font-weight: 400;
+  letter-spacing: -0.035em;
+  line-height: 1;
 }
 
-/* Small section label. */
+/* Small uppercase section label. */
 @utility eyebrow {
   font-size: 0.75rem;
   font-weight: 500;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
-/* Frosted panel over a photo: the signature surface. */
+/* The dark palette, scoped: text over photos, and the staff console. */
+@utility on-dark {
+  --color-ink: #0a0a0b;
+  --color-coal: #141416;
+  --color-char: #1c1c1f;
+  --color-smoke: #2a2a2e;
+  --color-line: rgb(255 255 255 / 0.07);
+  --color-line-hi: rgb(255 255 255 / 0.13);
+  --color-mute: #b4b4bb;
+  --color-faint: #85858d;
+  --color-cream: #f6f6f7;
+  --color-ember: #ff6a45;
+  --color-ember-hi: #ff8060;
+  --color-ok: #3ddc84;
+  --color-warn: #f5b83d;
+  --color-bad: #ff5c5c;
+  --color-info: #3aa4ff;
+  --color-bronze: #d09363;
+  --color-silver: #cfd3d9;
+  --color-gold: #f2c94c;
+  --color-platinum: #8fe3db;
+  --color-diamond: #a8b6ff;
+  --color-series-1: #3987e5;
+  --color-series-2: #d95926;
+  --color-series-3: #199e70;
+  --color-series-4: #c98500;
+  --color-series-5: #d55181;
+  --color-series-6: #0ca30c;
+  --color-series-other: #4a4a52;
+  --color-grid: #232327;
+  color-scheme: dark;
+}
+
+/* Frosted panel over a photo. Always light type. */
 @utility glass {
+  @apply on-dark;
+  color: var(--color-cream);
   background: linear-gradient(180deg, rgb(255 255 255 / 0.14), rgb(255 255 255 / 0.06));
   backdrop-filter: blur(22px) saturate(160%);
   -webkit-backdrop-filter: blur(22px) saturate(160%);
@@ -155,9 +195,11 @@ dialog[open]::backdrop {
     inset 0 0 0 1px rgb(255 255 255 / 0.08);
 }
 
-/* Darker frosted surface for controls over photos. */
+/* Darker frosted surface for controls over photos. Always light type. */
 @utility glass-dark {
-  background: rgb(10 10 11 / 0.55);
+  @apply on-dark;
+  color: var(--color-cream);
+  background: rgb(10 10 11 / 0.5);
   backdrop-filter: blur(20px) saturate(150%);
   -webkit-backdrop-filter: blur(20px) saturate(150%);
   box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.1);
@@ -170,20 +212,18 @@ dialog[open]::backdrop {
 
 /* Story ring: brand gradient around an avatar. */
 @utility story-ring {
-  background: conic-gradient(from 210deg, #ff5a36, #ff8fb1, #f2c94c, #ff5a36);
+  background: conic-gradient(from 210deg, #b4472c, #e8a0a8, #d9a441, #b4472c);
 }
 
-/* Raised surface: subtle top highlight on dark panels. */
+/* Card surface: white on the warm page, hairline edge. */
 @utility surface {
   background: var(--color-coal);
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.05),
-    inset 0 0 0 1px rgb(255 255 255 / 0.05);
+  box-shadow: inset 0 0 0 1px var(--color-line);
 }
 
 @utility chat-wallpaper {
-  background-color: #0e0e10;
-  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'160'%20height%3D'160'%20fill%3D'none'%20stroke%3D'%23ffffff'%20stroke-opacity%3D'0.035'%20stroke-width%3D'1.4'%20stroke-linecap%3D'round'%3E%3Cpath%20d%3D'M20%2028c4-6%2012-6%2012%202%200%206-12%2012-12%2012S8%2036%208%2030c0-8%208-8%2012-2z'%2F%3E%3Ccircle%20cx%3D'118'%20cy%3D'30'%20r%3D'9'%2F%3E%3Cpath%20d%3D'M70%2070l8%208m0-8l-8%208'%2F%3E%3Cpath%20d%3D'M130%2096c6%200%2010%204%2010%2010s-4%2010-10%2010'%2F%3E%3Crect%20x%3D'24'%20y%3D'104'%20width%3D'18'%20height%3D'14'%20rx%3D'4'%2F%3E%3Cpath%20d%3D'M84%20128q8-10%2016%200t16%200'%2F%3E%3Ccircle%20cx%3D'60'%20cy%3D'18'%20r%3D'2.5'%2F%3E%3Ccircle%20cx%3D'150'%20cy%3D'150'%20r%3D'2.5'%2F%3E%3Cpath%20d%3D'M100%2052l4%209%209%201-7%206%202%209-8-5-8%205%202-9-7-6%209-1z'%2F%3E%3C%2Fsvg%3E");
+  background-color: #efe9e1;
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'160'%20height%3D'160'%20fill%3D'none'%20stroke%3D'%231a1715'%20stroke-opacity%3D'0.05'%20stroke-width%3D'1.4'%20stroke-linecap%3D'round'%3E%3Cpath%20d%3D'M20%2028c4-6%2012-6%2012%202%200%206-12%2012-12%2012S8%2036%208%2030c0-8%208-8%2012-2z'%2F%3E%3Ccircle%20cx%3D'118'%20cy%3D'30'%20r%3D'9'%2F%3E%3Cpath%20d%3D'M70%2070l8%208m0-8l-8%208'%2F%3E%3Cpath%20d%3D'M130%2096c6%200%2010%204%2010%2010s-4%2010-10%2010'%2F%3E%3Crect%20x%3D'24'%20y%3D'104'%20width%3D'18'%20height%3D'14'%20rx%3D'4'%2F%3E%3Cpath%20d%3D'M84%20128q8-10%2016%200t16%200'%2F%3E%3Ccircle%20cx%3D'60'%20cy%3D'18'%20r%3D'2.5'%2F%3E%3Ccircle%20cx%3D'150'%20cy%3D'150'%20r%3D'2.5'%2F%3E%3Cpath%20d%3D'M100%2052l4%209%209%201-7%206%202%209-8-5-8%205%202-9-7-6%209-1z'%2F%3E%3C%2Fsvg%3E");
   background-size: 160px 160px;
 }
 
@@ -196,4 +236,17 @@ dialog[open]::backdrop {
 
 @utility tabular {
   font-variant-numeric: tabular-nums;
+}
+
+/* Editorial photo treatment for the public site: bright, soft and warm, low
+   contrast. Placeholders get it so they sit closer to the shoot's style;
+   drop it per photo once the real images are graded. */
+@utility wash {
+  filter: brightness(1.04) contrast(0.93) saturate(0.86) sepia(0.06);
+}
+
+/* Anything layered after a photo shade sits on the photo: keep it light. */
+.photo-shade ~ * {
+  @apply on-dark;
+  color: var(--color-cream);
 }

@@ -65,7 +65,7 @@ export function VerificationQueue() {
                     <p className="text-xs text-mute">{c.submittedAt ? timeAgo(c.submittedAt) : ""}</p>
                   </div>
                 </div>
-                <Link href={`/admin/verification/${c.userId}`} className="mt-4 flex h-11 items-center justify-center gap-2 rounded-full bg-cream text-sm font-semibold text-ink transition-colors hover:bg-white">
+                <Link href={`/admin/verification/${c.userId}`} className="mt-4 flex h-11 items-center justify-center gap-2 rounded-full bg-cream text-sm font-semibold text-ink transition-colors hover:bg-cream/85">
                   <Icon icon={File01Icon} size={16} /> Review documents and selfie
                 </Link>
                 <p className="mt-2 text-center text-[11px] text-faint">Partner checks (face match, liveness, authenticity) appear once a KYC provider is connected.</p>
@@ -99,7 +99,7 @@ function DecisionDialog({ c, d, onClose }: { c: VerificationCase; d: Verificatio
   return (
     <Dialog open onClose={onClose} title={title}>
       <div className="space-y-4">
-        <p className="text-sm text-mute">{d === "approve" ? "Their account opens immediately and they get a verified badge." : "They will see your note and must resubmit their ID and selfie before they can use Meet."}</p>
+        <p className="text-sm text-mute">{d === "approve" ? "Their account opens immediately and they get a verified badge." : "They will see your note and must resubmit their ID and selfie before they can use espenxa."}</p>
         {err && <Notice tone="bad">{err}</Notice>}
         <Textarea aria-label="Note" rows={3} placeholder={d === "approve" ? "Optional note for the audit log" : "Tell them what to fix, e.g. the photo was blurred."} value={note} onChange={(e) => setNote(e.target.value)} />
         <div className="grid grid-cols-2 gap-2.5">
@@ -265,7 +265,7 @@ function SuspendDialog({ id, name, suspend, onClose }: { id: string; name: strin
   return (
     <Dialog open onClose={onClose} title={suspend ? `Suspend ${name}?` : `Reactivate ${name}?`}>
       <div className="space-y-4">
-        <p className="text-sm text-mute">{suspend ? "They will be signed out and unable to use Meet until reactivated. They can appeal." : "They will be able to sign in and use Meet again."}</p>
+        <p className="text-sm text-mute">{suspend ? "They will be signed out and unable to use espenxa until reactivated. They can appeal." : "They will be able to sign in and use espenxa again."}</p>
         {err && <Notice tone="bad">{err}</Notice>}
         <Textarea aria-label="Reason" rows={3} placeholder="Reason (recorded in the audit log)" value={reason} onChange={(e) => setReason(e.target.value)} />
         <div className="grid grid-cols-2 gap-2.5">

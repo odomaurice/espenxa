@@ -146,7 +146,7 @@ export default function Onboarding() {
             );
           })}
         </ol>
-        <p className="mt-auto pt-8 text-xs leading-relaxed text-faint">You can skip any step and come back. Meet opens once every step is done and your identity is approved.</p>
+        <p className="mt-auto pt-8 text-xs leading-relaxed text-faint">You can skip any step and come back. espenxa opens once every step is done and your identity is approved.</p>
       </aside>
 
       <main className="flex min-h-dvh flex-col">

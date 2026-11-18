@@ -62,7 +62,7 @@ export default function Checkout({ id }: { id: string }) {
 
       <AnimatePresence mode="wait">
         {paid ? (
-          <motion.div key="done" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="surface flex flex-col items-center rounded-[32px] px-6 py-16 text-center">
+          <motion.div key="done" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="surface flex flex-col items-center rounded-[10px] px-6 py-16 text-center">
             <span className="relative grid size-24 place-items-center">
               <motion.span className="absolute inset-0 rounded-full bg-ok/15" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 200, damping: 12 }} />
               <motion.span initial={{ scale: 0, rotate: -40 }} animate={{ scale: 1, rotate: 0 }} transition={{ type: "spring", stiffness: 300, damping: 12, delay: 0.1 }} className="relative text-ok">
@@ -79,7 +79,7 @@ export default function Checkout({ id }: { id: string }) {
             {error && <Notice tone="bad">{error}</Notice>}
             {!c.available && <Notice tone="warn">{c.unavailableReason}</Notice>}
 
-            <section className="rounded-[28px] bg-cream p-6 text-ink">
+            <section className="rounded-[10px] bg-cream p-6 text-ink">
               <p className="text-sm text-ink/55">
                 {hoursLabel(bk.hours)} with {bk.provider.displayName} · {dateTime(bk.startAt, bk.timezone)}
               </p>
@@ -109,7 +109,7 @@ export default function Checkout({ id }: { id: string }) {
                 {c.methods.map((m) => {
                   const on = method === m.id;
                   return (
-                    <button key={m.id} type="button" aria-pressed={on} onClick={() => setMethod(m.id)} className={cx("flex items-center gap-4 rounded-[20px] p-4 text-left transition-colors", on ? "bg-char ring-2 ring-cream" : "bg-coal hover:bg-char")}>
+                    <button key={m.id} type="button" aria-pressed={on} onClick={() => setMethod(m.id)} className={cx("flex items-center gap-4 rounded-[10px] p-4 text-left transition-colors", on ? "bg-char ring-2 ring-cream" : "bg-coal hover:bg-char")}>
                       <span className={cx("grid size-11 place-items-center rounded-full", on ? "bg-cream text-ink" : "bg-smoke")}>
                         <Icon icon={METHOD_ICON[m.kind]} size={19} />
                       </span>
@@ -127,7 +127,7 @@ export default function Checkout({ id }: { id: string }) {
               <Icon icon={LockPasswordIcon} size={17} /> Pay {money(c.breakdown.total)}
             </Button>
             <p className="text-center text-xs leading-relaxed text-faint">
-              Paid securely through {c.gateway === "paystack" ? "Paystack" : "Flutterwave"}. Meet holds the money and pays {bk.provider.displayName} only after your time together is finished. If {bk.provider.displayName} cancels, you get everything back to the same card or account.
+              Paid securely through {c.gateway === "paystack" ? "Paystack" : "Flutterwave"}. espenxa holds the money and pays {bk.provider.displayName} only after your time together is finished. If {bk.provider.displayName} cancels, you get everything back to the same card or account.
             </p>
           </motion.div>
         )}

@@ -38,7 +38,7 @@ export const intentionLabel = (i: Intention) => INTENTIONS.find((x) => x.id === 
 
 export const ARRANGEMENTS: { id: Arrangement; label: string; sub: string }[] = [
   { id: "free", label: "Free", sub: "No charge for your time" },
-  { id: "paid", label: "Paid", sub: "Booked and paid through Meet" },
+  { id: "paid", label: "Paid", sub: "Booked and paid through espenxa" },
   { id: "flexible", label: "Flexible", sub: "Free or paid, depending on the plan" },
 ];
 export const arrangementLabel = (a: Arrangement) => ARRANGEMENTS.find((x) => x.id === a)?.label ?? a;
@@ -82,7 +82,7 @@ export const BOOKING_STATUS: Record<BookingStatus, { label: string; tone: "ok" |
   completed: { label: "Completed", tone: "mute" },
   customer_cancelled: { label: "Cancelled by the member", tone: "bad" },
   provider_cancelled: { label: "Cancelled by the companion", tone: "bad" },
-  platform_cancelled: { label: "Cancelled by Meet", tone: "bad" },
+  platform_cancelled: { label: "Cancelled by espenxa", tone: "bad" },
   declined: { label: "Declined", tone: "mute" },
   expired: { label: "Expired", tone: "mute" },
   disputed: { label: "In dispute", tone: "bad" },
@@ -161,7 +161,7 @@ export const ACCOUNT_ROLES: { id: import("./api/types").AccountRole; label: stri
 export const STEP_LABELS: Record<import("./api/types").OnboardingStepId, { label: string; sub: string }> = {
   photos: { label: "Photos", sub: "Clear photos of you" },
   about: { label: "About you", sub: "A short description" },
-  looking_for: { label: "Looking for", sub: "What brings you to Meet" },
+  looking_for: { label: "Looking for", sub: "What brings you to espenxa" },
   preferences: { label: "Preferences", sub: "Who you would like to meet" },
   experiences: { label: "Experiences", sub: "What you offer" },
   rates: { label: "Prices", sub: "Your rates by duration" },

@@ -43,7 +43,7 @@ import type {
 } from "../types";
 import { DURATIONS } from "../types";
 
-export const MOCK_VERSION = 12;
+export const MOCK_VERSION = 13;
 export const DEMO_PASSWORD = "meetdemo1";
 
 /* ---- reference ---------------------------------------------------------- */
@@ -75,7 +75,7 @@ export const DEFAULT_POLICY: CancellationPolicy = {
   ],
 };
 
-/** Agreed with the team: Meet keeps 10% of what companions earn. Everything here is editable in the admin console. */
+/** Agreed with the team: espenxa keeps 10% of what companions earn. Everything here is editable in the admin console. */
 export const DEFAULT_RULES: MoneyRules = {
   commissionPct: 10,
   tiers: DEFAULT_POLICY.tiers,
@@ -214,9 +214,9 @@ export type MockBooking = {
   disputeId: ID | null;
   payoutHeld?: boolean;
   refundMinor: number;
-  /** What the companion receives from a member cancellation, after Meet's share. */
+  /** What the companion receives from a member cancellation, after espenxa's share. */
   compensationMinor: number;
-  /** Meet's share of a member cancellation. */
+  /** espenxa's share of a member cancellation. */
   platformMinor?: number;
   /** Late companion cancellation, taken from their next payout. */
   penaltyMinor?: number;
@@ -525,7 +525,7 @@ export function buildSeed(): MockDB {
       id: "admin",
       email: "admin@meet.dev",
       phone: "+2348000000001",
-      fullName: "Meet Admin",
+      fullName: "espenxa Admin",
       username: "meet.admin",
       dateOfBirth: "1990-01-01",
       gender: "other",
@@ -574,7 +574,7 @@ export function buildSeed(): MockDB {
         createdAt: ago(mins + 60),
       },
       password: DEMO_PASSWORD,
-      profile: { displayName: name.split(" ")[0], bio: "New to Meet and looking forward to good company.", interests: [], hobbies: [], languages: ["en"], intentions: ["friendship"], photos: [], privacy: DEFAULT_PRIVACY },
+      profile: { displayName: name.split(" ")[0], bio: "New to espenxa and looking forward to good company.", interests: [], hobbies: [], languages: ["en"], intentions: ["friendship"], photos: [], privacy: DEFAULT_PRIVACY },
       geo: null,
       lastActive: ago(mins),
       provider: null,
@@ -715,8 +715,8 @@ export function buildSeed(): MockDB {
     payouts: [],
     markets: structuredClone(MARKETS),
     audit: [
-      { id: "au_1", at: ago(60 * 24 * 3), actor: "Meet Admin", role: "super_admin", action: "Market activated", target: "Kenya", reason: "Payments partner live" },
-      { id: "au_2", at: ago(60 * 24 * 9), actor: "Meet Admin", role: "super_admin", action: "Verification approved", target: "@zara", reason: "Documents match" },
+      { id: "au_1", at: ago(60 * 24 * 3), actor: "espenxa Admin", role: "super_admin", action: "Market activated", target: "Kenya", reason: "Payments partner live" },
+      { id: "au_2", at: ago(60 * 24 * 9), actor: "espenxa Admin", role: "super_admin", action: "Verification approved", target: "@zara", reason: "Documents match" },
     ],
   };
   return db;

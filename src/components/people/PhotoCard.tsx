@@ -41,7 +41,7 @@ export default function PhotoCard({ p, className, size = "md" }: { p: Profile; c
   }
 
   return (
-    <Tilt className={cx("group relative overflow-hidden rounded-[28px] bg-char shadow-[0_20px_50px_-25px_rgb(0_0_0/0.9)]", className)}>
+    <Tilt className={cx("group relative overflow-hidden rounded-[10px] bg-char shadow-[0_20px_50px_-25px_rgb(0_0_0/0.9)]", className)}>
       <Link href={`/people/${p.id}`} className="block" aria-label={`View ${p.displayName}'s profile`}>
         <Photo src={p.photos[0]} alt="" className={cx("w-full transition-transform duration-700 group-hover:scale-[1.04]", size === "lg" ? "aspect-[3/4]" : "aspect-[3/4.2]")} />
         <div className="photo-shade absolute inset-0" />
@@ -52,7 +52,7 @@ export default function PhotoCard({ p, className, size = "md" }: { p: Profile; c
         {p.activeRecently && <span className="glass-dark grid size-7 place-items-center rounded-full" title="Active recently"><span className="size-2 rounded-full bg-ok shadow-[0_0_8px_var(--color-ok)]" /></span>}
       </div>
 
-      <div className="glass absolute inset-x-2.5 bottom-2.5 rounded-[22px] p-3 pl-4">
+      <div className="glass absolute inset-x-2.5 bottom-2.5 rounded-[10px] p-3 pl-4">
         <Link href={`/people/${p.id}`} className="flex items-center gap-1.5">
           <span className="truncate text-[17px] font-semibold tracking-tight">{p.displayName}</span>
           {p.age !== null && <span className="text-[17px] font-light text-cream/75">{p.age}</span>}
@@ -110,5 +110,5 @@ export default function PhotoCard({ p, className, size = "md" }: { p: Profile; c
 }
 
 export function PhotoCardSkeleton({ className }: { className?: string }) {
-  return <div className={cx("aspect-[3/4.2] animate-pulse rounded-[28px] bg-char", className)} />;
+  return <div className={cx("aspect-[3/4.2] animate-pulse rounded-[10px] bg-char", className)} />;
 }

@@ -13,7 +13,7 @@ type Handler = (p: unknown) => void;
 const REPLIES: [RegExp, string][] = [
   [/\b(where|venue|place|restaurant|meet at|location)\b/i, "That place works for me. Shall we meet at the entrance?"],
   [/\b(when|time|pm|am|tomorrow|today|saturday|sunday|friday)\b/i, "That time suits me. I will put it in my calendar."],
-  [/\b(price|pay|cost|money|fee)\b/i, "Payment goes through Meet once we agree on the plan, so we are both covered."],
+  [/\b(price|pay|cost|money|fee)\b/i, "Payment goes through espenxa once we agree on the plan, so we are both covered."],
   [/\b(hi|hello|hey|good (morning|afternoon|evening))\b/i, "Hi! Nice to hear from you. What did you have in mind?"],
   [/\?\s*$/, "Good question. Let me think and I will tell you shortly."],
 ];

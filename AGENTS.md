@@ -11,19 +11,19 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 ---
 ---
 
-# Meet rules
+# espenxa rules
 
 The block above is managed by `next dev`; everything below it is ours.
 Product names live in `SITE` in [`src/lib/site.ts`](src/lib/site.ts): never
-hard-code them elsewhere. Plan: [`docs/frontend-plan.md`](docs/frontend-plan.md).
+hard-code them elsewhere. The name is always lowercase: **espenxa**.
+Plan: [`docs/frontend-plan.md`](docs/frontend-plan.md).
 
 ## What this is
 
-The **Meet** web frontend, part of the **Watch & Meet** brand. Meet is an
-adults-only (18+) platform for social discovery, connections, messaging and
-booking social experiences with companions, across all 55 AU member states.
-Watch is a separate product: it appears on the brand homepage as a preview
-only. Do not build Watch features here.
+The **espenxa** web frontend: an adults-only (18+) platform for social
+discovery, connections, messaging and booking social experiences with
+companions, across all 55 AU member states. (It was called Meet, inside a
+"Watch & Meet" brand; Watch is dropped and nothing of it is built here.)
 
 This repo is **frontend only**. The backend is built separately. Screens call
 `api` from `src/lib/api/client.ts`, typed by `src/lib/api/contract.ts` and
@@ -63,35 +63,42 @@ staff console under `/admin`. Components follow the same names
 
 ## Design
 
-- **Dark only.** Neutral near-black surfaces stepped by lightness (`ink` <
-  `coal` < `char` < `smoke`), near-white `cream` type, one accent: `ember`
-  `#FF5A36`. Small text on ember is `ink`.
-- **Type:** General Sans only (self-hosted in `src/fonts/`, licence alongside).
-  `display` = semibold, tight tracking, for names, titles and big numbers.
-- **Modern premium app language** (see the dating-app references the user
-  shared): photo-filled cards with large radii (24 to 36px), frosted `glass`
-  name plates over photos, `glass-dark` controls, white pill for the active
-  state (segmented `Tabs`, sidebar, tab bar), round icon buttons, pass/like
-  pill cluster, scalloped `Verified` seal, story rings, `surface` panels.
-- **Buttons are pills.** `primary` is cream; `accent` (ember) only for the
-  key action on a screen (join, like, book, pay).
-- **Motion** lives in `src/components/motion.tsx` (`Reveal`, `Stagger`,
-  `Lift`, `Tilt`, `Spotlight`, `Burst`) plus `layoutId` pills and the
-  `(member)/template.tsx` page transition. Springs, not linear tweens.
+Clean editorial retail look (the user's reference is the structure and feel
+of spanx.com; never copy its logo, images or wording).
+
+- **Light.** White page and cards, near-black type, quiet greys. Token names
+  are roles: `ink` = page, `cream` = text, `coal < char < smoke` = surfaces,
+  one accent `ember` (deep terracotta), only for key actions inside the app
+  (never on the public homepage). Public photos use the `wash` treatment. `on-dark` restores
+  the dark palette for text over photos (`glass`, anything after
+  `photo-shade`) and the staff console, which stays dark.
+- **Type:** Gelasio serif for `display` headings at regular weight (400),
+  tightly tracked, never bold. Inter for body and UI, mostly regular. Courier
+  Prime only in the announcement bar. All self-hosted by `next/font/google`
+  (SIL OFL). Do not make headings bold.
+- **Shapes:** square photos on the public site; small radii (10px) on app
+  cards; buttons are pills in small uppercase (`primary` filled black,
+  `secondary` thin outline, `accent` ember only for the key action).
+- **Motion** lives in `src/components/motion.tsx` plus `layoutId` pills and
+  the `(member)/template.tsx` page transition. Springs, not linear tweens.
   `MotionConfig reducedMotion="user"` must stay in `Providers`.
-- **Logos** are outlined SVGs in `public/brand/` (use `Logo` / `Wordmark`);
-  regenerate from the font, never hand-type them.
-- Provider ranks have their own colours: `bronze` to `diamond`.
+- **Logo:** `espenxa.` in mid grey, outlined from General Sans Medium in `public/brand/`
+  (use `Logo` / `Wordmark`, `kind="light"` on dark or photos); regenerate
+  from the font, never hand-type it.
+- Companion levels have their own colours: `bronze` to `diamond`.
 - **No auto-moving content** (marquees, auto-advancing carousels, looping
   animation). Entrance, hover, drag and scroll-linked motion are fine. The
-  chat "typing" dots are the one loop allowed: a live status, shown only
-  while the other person types.
+  chat "typing" dots are the one loop allowed.
 - Icons: **Hugeicons** only. No em dashes in copy, comments or docs.
 
 ## Content and safety
 
-- Every photo in `public/people/` is AI-generated, of fictional people. Never
-  use stock photos or real people's images as profile placeholders.
+- Profiles are never real people unless they are real members. Every photo
+  in `public/people/` is AI-generated and fictional. Editorial photos of real
+  people go only in the editorial slots in `src/lib/photos.ts` (files in
+  `public/editorial/`), and only with a licence or signed
+  release that allows dating and companionship use (`docs/photo-shoot.md`).
+  Cast across the whole continent, not only black Africans.
 - Nothing explicit in UI, placeholders or copy. Bookings buy time and company
   for social experiences, never physical contact; say so where money appears.
 - Location is always approximate ("about 2 km"), never a precise point.
@@ -101,9 +108,9 @@ staff console under `/admin`. Components follow the same names
   decisions: leave a marked `TODO(team)` gap and ask.
 - Money is integer minor units; format only through `src/lib/format.ts`.
 - **Money rules** (agreed 2026-11-18, editable in `/admin/money`, snapshotted
-  on each booking): Meet keeps 10% of what the companion earns, never added
+  on each booking): espenxa keeps 10% of what the companion earns, never added
   to the member's price. Member cancels: refund by notice step, the rest to
-  the companion minus Meet's share. Companion cancels: member refunded in
+  the companion minus espenxa's share. Companion cancels: member refunded in
   full; a late cancellation costs the companion a penalty from their next
   payout. Refunds go back to the original payment method; members never
   enter bank details. Companions add payout details (name must match their

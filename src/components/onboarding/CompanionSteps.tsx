@@ -3,7 +3,7 @@
 /*
  * Companion-only onboarding: what they offer, their own prices for the six
  * durations, and when they are usually free. Prices are the companion's choice;
- * Meet never suggests or fixes them.
+ * espenxa never suggests or fixes them.
  */
 import { Clock01Icon } from "@hugeicons/core-free-icons";
 import { AnimatePresence, motion } from "framer-motion";
@@ -42,7 +42,7 @@ export function ExperiencesStep({ onReady }: StepProps) {
             {ARRANGEMENTS.map((a) => {
               const on = v.arrangement === a.id;
               return (
-                <motion.button key={a.id} type="button" aria-pressed={on} whileTap={{ scale: 0.97 }} onClick={() => set({ arrangement: a.id })} className={cx("rounded-[20px] p-4 text-left transition-colors", on ? "bg-cream text-ink" : "bg-char hover:bg-smoke")}>
+                <motion.button key={a.id} type="button" aria-pressed={on} whileTap={{ scale: 0.97 }} onClick={() => set({ arrangement: a.id })} className={cx("rounded-[10px] p-4 text-left transition-colors", on ? "bg-cream text-ink" : "bg-char hover:bg-smoke")}>
                   <span className="block text-[15px] font-semibold">{a.label}</span>
                   <span className={cx("mt-0.5 block text-xs", on ? "text-ink/60" : "text-mute")}>{a.sub}</span>
                 </motion.button>
@@ -120,7 +120,7 @@ export function RatesStep({ onReady }: StepProps) {
       {error && <Notice tone="bad" className="mb-5">{error}</Notice>}
       <ul className="space-y-2.5">
         {rows.map((r, i) => (
-          <motion.li key={r.hours} layout className={cx("rounded-[22px] p-4 transition-colors", r.on ? "bg-char" : "bg-coal")}>
+          <motion.li key={r.hours} layout className={cx("rounded-[10px] p-4 transition-colors", r.on ? "bg-char" : "bg-coal")}>
             <div className="flex items-center gap-4">
               <span className={cx("grid size-11 shrink-0 place-items-center rounded-full", r.on ? "bg-cream text-ink" : "bg-smoke text-mute")}>
                 <Icon icon={Clock01Icon} size={19} stroke={2} />
@@ -155,7 +155,7 @@ export function RatesStep({ onReady }: StepProps) {
         ))}
       </ul>
       {errors.rates && <p className="mt-3 px-1 text-xs text-bad">{errors.rates}</p>}
-      <div className="mt-6 flex items-center justify-between gap-4 rounded-[22px] bg-char p-4">
+      <div className="mt-6 flex items-center justify-between gap-4 rounded-[10px] bg-char p-4">
         <div>
           <p className="text-[15px] font-medium">Open to discussion</p>
           <p className="text-xs text-mute">Members can propose a different price before you accept.</p>
@@ -191,7 +191,7 @@ export function AvailabilityStep({ onReady }: StepProps) {
         {ORDER.map((d) => {
           const w = get(d);
           return (
-            <li key={d} className={cx("flex flex-wrap items-center gap-3 rounded-[20px] px-4 py-3 transition-colors", w ? "bg-char" : "bg-coal")}>
+            <li key={d} className={cx("flex flex-wrap items-center gap-3 rounded-[10px] px-4 py-3 transition-colors", w ? "bg-char" : "bg-coal")}>
               <Switch label={`Available on ${DAYS[d]}`} on={!!w} onChange={(on) => put(d, on ? {} : null)} />
               <span className={cx("w-28 text-[15px] font-medium", !w && "text-mute")}>{DAYS[d]}</span>
               {w ? (

@@ -68,7 +68,7 @@ const newClientId = () => `c${Date.now().toString(36)}${Math.random().toString(3
 
 const statusOf = (m: Message): MessageStatus => (m.id.startsWith("tmp-") ? "sending" : m.readAt ? "read" : m.deliveredAt ? "delivered" : "sent");
 
-/** Notes from Meet are stored with the actor's name; the actor reads "You". */
+/** Notes from espenxa are stored with the actor's name; the actor reads "You". */
 const noteText = (m: Message, mine: boolean) => (mine ? m.body.replace(/^.+? (requested|accepted|declined|suggested)/, "You $1") : m.body);
 
 /* ---- list ---------------------------------------------------------------- */
@@ -177,8 +177,8 @@ export default function Messages({ activeId }: { activeId?: string }) {
 function ChatRow({ c, on, typing, now }: { c: Connection; on: boolean; typing: boolean; now: number }) {
   const last = c.lastMessage;
   return (
-    <Link href={`/chats/${c.id}`} className={cx("relative flex items-center gap-3 rounded-[20px] px-3 py-3 transition-colors", on ? "" : "hover:bg-char/60")}>
-      {on && <motion.span layoutId="chat-active" className="absolute inset-0 rounded-[20px] bg-char" transition={{ type: "spring", stiffness: 400, damping: 34 }} />}
+    <Link href={`/chats/${c.id}`} className={cx("relative flex items-center gap-3 rounded-[10px] px-3 py-3 transition-colors", on ? "" : "hover:bg-char/60")}>
+      {on && <motion.span layoutId="chat-active" className="absolute inset-0 rounded-[10px] bg-char" transition={{ type: "spring", stiffness: 400, damping: 34 }} />}
       <span className="relative shrink-0">
         <Avatar src={c.person.photo} name={c.person.displayName} size={52} />
         {c.presence.online && <span className="absolute right-0.5 bottom-0.5 size-3.5 rounded-full border-[2.5px] border-coal bg-ok" aria-label="Online" />}
@@ -387,23 +387,23 @@ function Thread({ c }: { c: Connection }) {
           <AnimatePresence>
             {menu && (
               <motion.div initial={{ opacity: 0, scale: 0.95, y: -6 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95 }} className="glass-dark absolute top-12 right-0 z-20 w-56 rounded-2xl p-1.5 text-sm">
-                <Link href={`/people/${c.person.id}`} className="flex items-center gap-2.5 rounded-xl px-3 py-2.5 hover:bg-white/10">
+                <Link href={`/people/${c.person.id}`} className="flex items-center gap-2.5 rounded-xl px-3 py-2.5 hover:bg-cream/85/10">
                   <Icon icon={UserCircleIcon} size={16} /> View profile
                 </Link>
                 {c.booking && (
-                  <Link href={`/bookings/${c.booking.id}`} className="flex items-center gap-2.5 rounded-xl px-3 py-2.5 hover:bg-white/10">
+                  <Link href={`/bookings/${c.booking.id}`} className="flex items-center gap-2.5 rounded-xl px-3 py-2.5 hover:bg-cream/85/10">
                     <Icon icon={Calendar03Icon} size={16} /> View booking
                   </Link>
                 )}
-                <button type="button" onClick={() => (setMenu(false), setReporting(true))} className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 hover:bg-white/10">
+                <button type="button" onClick={() => (setMenu(false), setReporting(true))} className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 hover:bg-cream/85/10">
                   <Icon icon={Flag02Icon} size={16} /> Report
                 </button>
                 {!c.booking && (
-                  <button type="button" onClick={() => endChat("unmatch")} className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 hover:bg-white/10">
+                  <button type="button" onClick={() => endChat("unmatch")} className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 hover:bg-cream/85/10">
                     <Icon icon={UserRemove01Icon} size={16} /> End chat
                   </button>
                 )}
-                <button type="button" onClick={() => endChat("block")} className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 text-bad hover:bg-white/10">
+                <button type="button" onClick={() => endChat("block")} className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 text-bad hover:bg-cream/85/10">
                   <Icon icon={UserBlock01Icon} size={16} /> Block
                 </button>
               </motion.div>
@@ -423,9 +423,9 @@ function Thread({ c }: { c: Connection }) {
           }}
           className="chat-wallpaper no-scrollbar h-full overflow-y-auto px-3 py-4 sm:px-8"
         >
-          <p className="mx-auto mb-3 flex max-w-md items-start gap-2 rounded-xl bg-[#2b2418] px-3.5 py-2.5 text-center text-[12px] leading-relaxed text-[#f5d9a8]">
+          <p className="mx-auto mb-3 flex max-w-md items-start gap-2 rounded-xl bg-[#fbf1dc] px-3.5 py-2.5 text-center text-[12px] leading-relaxed text-[#7a5410]">
             <Icon icon={Shield01Icon} size={15} className="mt-px shrink-0" />
-            <span>Keep chats and payments on Meet. Never send money directly or share your home address before you meet.</span>
+            <span>Keep chats and payments on espenxa. Never send money directly or share your home address before you meet.</span>
           </p>
           {rt.simulated && (
             <div className="mx-auto mb-3 max-w-md">
@@ -538,7 +538,7 @@ function PlanBar({ c }: { c: Connection }) {
                 ? customer
                   ? `${name} marked it as finished. Please confirm.`
                   : `Waiting for ${name} to confirm it finished.`
-                : "This booking is being reviewed by Meet.";
+                : "This booking is being reviewed by espenxa.";
   const action =
     s === "accepted" && customer ? (
       <Link href={`/checkout/${b.id}`} className={buttonClass("accent", "sm", "shrink-0")}>
@@ -653,7 +653,7 @@ function Composer({ value, onChange, onSend, name }: { value: string; onChange: 
       }}
       className="flex items-end gap-2 border-t border-line bg-coal/80 p-2.5 sm:p-3"
     >
-      <label className="flex min-h-12 flex-1 items-center rounded-[24px] bg-char px-4 py-2.5">
+      <label className="flex min-h-12 flex-1 items-center rounded-[10px] bg-char px-4 py-2.5">
         <textarea
           ref={ref}
           rows={1}

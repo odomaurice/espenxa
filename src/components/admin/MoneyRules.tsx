@@ -1,7 +1,7 @@
 "use client";
 
 /*
- * Money rules: Meet's share, the cancellation steps, the late cancellation
+ * Money rules: espenxa's share, the cancellation steps, the late cancellation
  * penalty for companions and the payout safety wait. A live example shows
  * exactly where the money goes before anyone saves. Changes apply to new
  * bookings only and are written to the audit log with a reason.
@@ -48,7 +48,7 @@ function Editor({ rules }: { rules: Rules }) {
   const dirty = JSON.stringify({ pct, tiers, penalty, hold }) !== JSON.stringify({ pct: rules.commissionPct, tiers: rules.tiers, penalty: rules.latePenalty, hold: rules.payoutHoldHours });
   const problem =
     pct < 0 || pct > 50
-      ? "Meet's share must be from 0 to 50%."
+      ? "espenxa's share must be from 0 to 50%."
       : !sorted.length || sorted[sorted.length - 1].minHours !== 0
         ? "Add a step that starts at 0 hours, for last-minute cancellations."
         : new Set(sorted.map((s) => s.minHours)).size !== sorted.length
@@ -97,10 +97,10 @@ function Editor({ rules }: { rules: Rules }) {
       <div className="grid grid-cols-[minmax(0,1fr)] gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
         <div className="space-y-6">
           <section className="surface rounded-card p-6">
-            <h2 className="text-lg font-semibold">Meet&apos;s share</h2>
+            <h2 className="text-lg font-semibold">espenxa&apos;s share</h2>
             <p className="mt-1 text-sm text-mute">Taken from what the companion earns, on finished bookings and on cancellation compensation. Never added to the member&apos;s price.</p>
             <div className="mt-4 flex items-center gap-3">
-              <PctInput value={pct} onChange={setPct} disabled={!canEdit} label="Meet's share" max={50} />
+              <PctInput value={pct} onChange={setPct} disabled={!canEdit} label="espenxa's share" max={50} />
               <p className="text-sm text-mute">
                 Companion keeps <b className="text-cream">{100 - pct}%</b>
               </p>
@@ -109,7 +109,7 @@ function Editor({ rules }: { rules: Rules }) {
 
           <section className="surface rounded-card p-6">
             <h2 className="text-lg font-semibold">When a member cancels</h2>
-            <p className="mt-1 text-sm text-mute">Each step sets how much the member gets back. The rest goes to the companion for the time they kept free, minus Meet&apos;s share.</p>
+            <p className="mt-1 text-sm text-mute">Each step sets how much the member gets back. The rest goes to the companion for the time they kept free, minus espenxa&apos;s share.</p>
             <ul className="mt-4 space-y-2">
               {steps.map((s, i) => (
                 <li key={i} className="flex flex-wrap items-center gap-x-3 gap-y-2 rounded-[18px] bg-char p-3">
@@ -160,7 +160,7 @@ function Editor({ rules }: { rules: Rules }) {
                     <th className="px-4 py-3 text-left font-medium">What happens</th>
                     <th className="px-3 py-3 text-right font-medium">Member back</th>
                     <th className="px-3 py-3 text-right font-medium">Companion</th>
-                    <th className="px-4 py-3 text-right font-medium">Meet</th>
+                    <th className="px-4 py-3 text-right font-medium">espenxa</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-line">
@@ -178,7 +178,7 @@ function Editor({ rules }: { rules: Rules }) {
                 </tbody>
               </table>
             </div>
-            <p className="mt-3 text-xs text-faint">Payment processing costs from Paystack and Flutterwave are paid by Meet out of its share. Tax is not included yet.</p>
+            <p className="mt-3 text-xs text-faint">Payment processing costs from Paystack and Flutterwave are paid by espenxa out of its share. Tax is not included yet.</p>
             {/* TODO(team): tax per market, and whether processing costs on refunds are absorbed or passed on. */}
           </section>
 

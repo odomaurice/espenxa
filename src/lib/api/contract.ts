@@ -1,5 +1,5 @@
 /*
- * The operations the Meet frontend needs from the backend. The mock adapter
+ * The operations the espenxa frontend needs from the backend. The mock adapter
  * (./mock) and the future HTTP adapter both implement this interface, so
  * screens never change when the real API arrives.
  */
@@ -122,7 +122,7 @@ export interface MeetApi {
     data(): Promise<OnboardingData>;
     save(input: OnboardingSave): Promise<OnboardingStatus>;
     skip(step: OnboardingStepId): Promise<OnboardingStatus>;
-    /** Government ID images go straight to the KYC provider; Meet keeps only the decision. */
+    /** Government ID images go straight to the KYC provider; espenxa keeps only the decision. */
     uploadId(input: { type: IdDocumentType; country: string; front: File; back?: File }): Promise<OnboardingStatus>;
     /** Selfie for face match and liveness, performed by the KYC provider. */
     submitSelfie(image: Blob): Promise<OnboardingStatus>;

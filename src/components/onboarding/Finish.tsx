@@ -25,16 +25,16 @@ export default function Finish({ status, onOpen }: { status: OnboardingStatus; o
       <p className="mx-auto mt-3 max-w-md text-[15px] leading-relaxed text-mute">
         {done
           ? status.verification === "verified"
-            ? "Your account is approved. Welcome to Meet."
+            ? "Your account is approved. Welcome to espenxa."
             : "We are reviewing your ID and selfie. This usually takes less than a day, and we will let you know the moment you are approved."
-          : `You skipped ${left.length} ${left.length === 1 ? "step" : "steps"}. You can look around your dashboard, but Meet opens once every step is done and your identity is approved.`}
+          : `You skipped ${left.length} ${left.length === 1 ? "step" : "steps"}. You can look around your dashboard, but espenxa opens once every step is done and your identity is approved.`}
       </p>
 
       {!done && (
         <ul className="mx-auto mt-8 max-w-md space-y-2 text-left">
           {left.map((s, i) => (
             <motion.li key={s.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 + i * 0.06 }}>
-              <button type="button" onClick={() => onOpen(s.id)} className="flex w-full items-center gap-4 rounded-[20px] bg-char px-4 py-3.5 text-left transition-colors hover:bg-smoke">
+              <button type="button" onClick={() => onOpen(s.id)} className="flex w-full items-center gap-4 rounded-[10px] bg-char px-4 py-3.5 text-left transition-colors hover:bg-smoke">
                 <span className="size-2.5 rounded-full bg-warn" />
                 <span className="flex-1">
                   <span className="block text-[15px] font-medium">{STEP_LABELS[s.id].label}</span>

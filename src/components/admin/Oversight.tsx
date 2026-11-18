@@ -424,7 +424,7 @@ export function Activity() {
   const shown = (list.data ?? []).filter((e) => kind === "all" || e.kind === kind);
   return (
     <div>
-      <PageHeader title="Activity" sub="Everything happening on Meet, newest first. Message contents are private and never shown." />
+      <PageHeader title="Activity" sub="Everything happening on espenxa, newest first. Message contents are private and never shown." />
       <div className="no-scrollbar mb-5 flex gap-2 overflow-x-auto pb-1">
         {(["all", ...Object.keys(KIND)] as (ActivityKind | "all")[]).map((k) => (
           <button key={k} type="button" aria-pressed={kind === k} onClick={() => setKind(k)} className={cx("h-10 shrink-0 rounded-full px-4 text-[13px] font-medium transition-colors", kind === k ? "bg-cream text-ink" : "bg-char text-cream/80 hover:bg-smoke")}>
@@ -470,7 +470,7 @@ export function Bookings() {
   const count = (f: BookingFilter) => (list.data ?? []).filter((b) => !FILTERS[f] || FILTERS[f]!.includes(b.status) || (f === "attention" && b.payoutHeld)).length;
   return (
     <div>
-      <PageHeader title="Bookings" sub="Every booking on Meet, from request to payout." />
+      <PageHeader title="Bookings" sub="Every booking on espenxa, from request to payout." />
       <div className="mb-5 flex flex-wrap items-center gap-3">
         <Tabs
           value={filter}
@@ -654,7 +654,7 @@ export function BookingDetail({ id }: { id: string }) {
                   <span className={cx("absolute top-1 -left-7.75 size-3.5 rounded-full ring-4 ring-coal", e.actor === "staff" ? "bg-info" : i === 0 ? "bg-ember" : "bg-smoke")} />
                   <p className="text-[14.5px] font-medium">{e.label}</p>
                   <p className="text-xs text-mute">
-                    {e.actor === "staff" ? "Meet staff" : e.actor === "system" ? "System" : e.actor === "customer" ? x.customer.displayName : x.provider.displayName} · {timeAgo(e.at)}
+                    {e.actor === "staff" ? "espenxa staff" : e.actor === "system" ? "System" : e.actor === "customer" ? x.customer.displayName : x.provider.displayName} · {timeAgo(e.at)}
                   </p>
                 </li>
               ))}
@@ -700,7 +700,7 @@ export function BookingDetail({ id }: { id: string }) {
               )}
               {!closed && (
                 <Button variant="danger" size="lg" onClick={() => setAction({ type: "platform_cancel" })}>
-                  Cancel on behalf of Meet
+                  Cancel on behalf of espenxa
                 </Button>
               )}
               {closed && !x.payoutHeld && <p className="text-sm text-mute">This booking is closed. No further actions.</p>}
@@ -780,7 +780,7 @@ const LEDGER_KIND: Record<LedgerEntry["kind"], string> = {
   compensation: "Companion compensation",
   host_earning: "Companion earning",
   payout: "Payout",
-  platform_fee: "Meet's share",
+  platform_fee: "espenxa's share",
   penalty: "Late cancellation penalty",
 };
 
@@ -793,7 +793,7 @@ export function Finance() {
   return (
     <div className="space-y-6">
       <PageHeader title="Finance" sub="Money paid in, refunded, held for companions and released. Amounts stay in each booking's own currency." />
-      <Notice tone="warn">All amounts are simulated. Paystack and Flutterwave are not connected yet, so no money moves. Meet&apos;s share follows the money rules each booking was made under.</Notice>
+      <Notice tone="warn">All amounts are simulated. Paystack and Flutterwave are not connected yet, so no money moves. espenxa&apos;s share follows the money rules each booking was made under.</Notice>
       {!!f.data.payoutReviews.length && (
         <section className="surface rounded-card p-6">
           <h2 className="text-lg font-semibold">Payout details to check</h2>
@@ -826,7 +826,7 @@ export function Finance() {
               ["Held for companions", money(s.hostPending), "Not yet withdrawable"],
               ["Available to companions", money(s.hostAvailable), null],
               ["Paid out", money(s.paidOut), "Sent to companions (simulated)"],
-              ["Meet's revenue", s.platformRevenue ? money(s.platformRevenue) : "None yet", "Share of finished bookings, cancellations and penalties"],
+              ["espenxa's revenue", s.platformRevenue ? money(s.platformRevenue) : "None yet", "Share of finished bookings, cancellations and penalties"],
             ].map(([k, v, sub]) => (
               <StaggerItem key={k} className="rounded-[20px] bg-char p-4">
                 <p className="text-xs text-mute">{k}</p>
@@ -849,7 +849,7 @@ export function Finance() {
               { id: "refund", label: "Refunds" },
               { id: "compensation", label: "Compensation" },
               { id: "host_earning", label: "Companion earnings" },
-              { id: "platform_fee", label: "Meet's share" },
+              { id: "platform_fee", label: "espenxa's share" },
               { id: "penalty", label: "Penalties" },
               { id: "payout", label: "Payouts" },
             ]}
@@ -978,7 +978,7 @@ export function Reports() {
       {open && (
         <ReasonDialog
           title={open.a === "dismiss" ? "Dismiss this report?" : open.a === "warn" ? `Warn ${open.r.target.displayName}?` : `Suspend ${open.r.target.displayName}?`}
-          body={open.a === "dismiss" ? "No action is taken against the reported person. The reporter is thanked." : open.a === "warn" ? "They receive your note as an official warning." : "They are blocked from using Meet until reactivated. They can appeal."}
+          body={open.a === "dismiss" ? "No action is taken against the reported person. The reporter is thanked." : open.a === "warn" ? "They receive your note as an official warning." : "They are blocked from using espenxa until reactivated. They can appeal."}
           confirmLabel={open.a === "dismiss" ? "Dismiss" : open.a === "warn" ? "Send warning" : "Suspend"}
           danger={open.a === "suspend"}
           onClose={() => setOpen(null)}

@@ -143,7 +143,7 @@ function Viewer({ files, index, onClose, onIndex }: { files: KycFile[]; index: n
       </div>
       <div className="flex justify-center gap-2 p-3">
         {files.map((x, i) => (
-          <button key={x.id} type="button" onClick={() => { setZoom(1); setRot(0); onIndex(i); }} className={cx("rounded-full px-3.5 py-1.5 text-xs font-medium", i === index ? "bg-cream text-ink" : "bg-white/10 hover:bg-white/20")}>
+          <button key={x.id} type="button" onClick={() => { setZoom(1); setRot(0); onIndex(i); }} className={cx("rounded-full px-3.5 py-1.5 text-xs font-medium", i === index ? "bg-cream text-ink" : "bg-white/10 hover:bg-cream/85/20")}>
             {KIND_LABEL[x.kind]}
           </button>
         ))}
@@ -288,7 +288,7 @@ function Decide({ userId, name, d, onClose }: { userId: string; name: string; d:
   return (
     <Dialog open onClose={onClose} title={d === "approve" ? `Approve ${name}?` : d === "reject" ? `Reject ${name}?` : `Ask ${name} for more?`}>
       <div className="space-y-4">
-        <p className="text-sm text-mute">{d === "approve" ? "Their account opens immediately and they get a verified badge." : "They will see your note and must resubmit their ID and selfie before they can use Meet."}</p>
+        <p className="text-sm text-mute">{d === "approve" ? "Their account opens immediately and they get a verified badge." : "They will see your note and must resubmit their ID and selfie before they can use espenxa."}</p>
         {err && <Notice tone="bad">{err}</Notice>}
         <Textarea aria-label="Note" rows={3} placeholder={d === "approve" ? "Optional note for the audit log" : "Tell them what to fix, for example: the ID photo is blurred."} value={note} onChange={(e) => setNote(e.target.value)} />
         <div className="grid grid-cols-2 gap-2.5">

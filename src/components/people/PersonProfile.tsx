@@ -40,7 +40,7 @@ export default function PersonProfile({ id }: { id: string }) {
   if (person.isPending)
     return (
       <div className="grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[minmax(0,460px)_1fr]">
-        <Skeleton className="aspect-[3/4] rounded-[36px]" />
+        <Skeleton className="aspect-[3/4] rounded-[10px]" />
         <div className="space-y-4">
           <Skeleton className="h-40" />
           <Skeleton className="h-56" />
@@ -69,7 +69,7 @@ function Loaded({ p }: { p: Profile }) {
   return (
     <div className="grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[minmax(0,460px)_1fr] lg:gap-8">
       <div className="space-y-3 lg:sticky lg:top-8 lg:self-start">
-        <div className="relative overflow-hidden rounded-[36px] bg-char ring-1 ring-white/10">
+        <div className="relative overflow-hidden rounded-[10px] bg-char ring-1 ring-white/10">
           <Photo src={p.photos[photo] ?? p.photos[0]} alt={`${p.displayName}, photo ${photo + 1}`} className="aspect-[3/4] w-full" />
           <div className="photo-shade absolute inset-0" />
           <div className="absolute inset-x-4 top-4 flex items-center justify-between">
@@ -87,7 +87,7 @@ function Loaded({ p }: { p: Profile }) {
               <IconButton icon={MoreVerticalIcon} label="More options" tone="glass" onClick={() => setMenu((m) => !m)} />
               {menu && (
                 <div className="glass-dark absolute top-12 right-0 z-10 w-48 overflow-hidden rounded-2xl p-1.5 text-sm">
-                  <button type="button" onClick={() => { setMenu(false); setReporting(true); }} className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 hover:bg-white/10">
+                  <button type="button" onClick={() => { setMenu(false); setReporting(true); }} className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 hover:bg-cream/85/10">
                     <Icon icon={Flag02Icon} size={16} /> Report
                   </button>
                   <button
@@ -100,7 +100,7 @@ function Loaded({ p }: { p: Profile }) {
                       qc.invalidateQueries({ queryKey: ["discovery"] });
                       router.replace("/discover");
                     }}
-                    className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 text-bad hover:bg-white/10"
+                    className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 text-bad hover:bg-cream/85/10"
                   >
                     <Icon icon={UserBlock01Icon} size={16} /> Block
                   </button>
@@ -131,7 +131,7 @@ function Loaded({ p }: { p: Profile }) {
         {p.photos.length > 1 && (
           <div className="grid grid-cols-4 gap-2.5">
             {p.photos.map((src, i) => (
-              <button key={i} type="button" onClick={() => setPhoto(i)} aria-label={`Show photo ${i + 1}`} className={cx("overflow-hidden rounded-[18px] ring-2 transition", i === photo ? "ring-cream" : "ring-transparent opacity-70 hover:opacity-100")}>
+              <button key={i} type="button" onClick={() => setPhoto(i)} aria-label={`Show photo ${i + 1}`} className={cx("overflow-hidden rounded-[10px] ring-2 transition", i === photo ? "ring-cream" : "ring-transparent opacity-70 hover:opacity-100")}>
                 <Photo src={src} alt="" className="aspect-square w-full" />
               </button>
             ))}
@@ -157,11 +157,11 @@ function Loaded({ p }: { p: Profile }) {
             <Icon icon={FavouriteIcon} size={20} stroke={2.4} /> {liked ? "Liked" : "Like"}
           </button>
           {p.viewer.connectionId ? (
-            <Link href={`/chats/${p.viewer.connectionId}`} className="flex h-14 flex-1 items-center justify-center gap-2 rounded-full bg-cream font-semibold text-ink hover:bg-white">
+            <Link href={`/chats/${p.viewer.connectionId}`} className="flex h-14 flex-1 items-center justify-center gap-2 rounded-full bg-cream font-semibold text-ink hover:bg-cream/85">
               <Icon icon={Message01Icon} size={20} stroke={2} /> Message
             </Link>
           ) : p.provider ? (
-            <ChatButton personId={p.id} className="flex h-14 flex-1 items-center justify-center gap-2 rounded-full bg-cream font-semibold text-ink hover:bg-white">
+            <ChatButton personId={p.id} className="flex h-14 flex-1 items-center justify-center gap-2 rounded-full bg-cream font-semibold text-ink hover:bg-cream/85">
               Message
             </ChatButton>
           ) : (
@@ -169,7 +169,7 @@ function Loaded({ p }: { p: Profile }) {
               type="button"
               disabled={!!p.viewer.requestPending}
               onClick={() => setConnecting(true)}
-              className="flex h-14 flex-1 items-center justify-center gap-2 rounded-full bg-cream font-semibold text-ink hover:bg-white disabled:bg-char disabled:text-mute"
+              className="flex h-14 flex-1 items-center justify-center gap-2 rounded-full bg-cream font-semibold text-ink hover:bg-cream/85 disabled:bg-char disabled:text-mute"
             >
               <Icon icon={UserAdd01Icon} size={20} stroke={2} /> {p.viewer.requestPending === "sent" ? "Request sent" : p.viewer.requestPending === "received" ? "Wants to connect" : "Connect"}
             </button>
@@ -178,12 +178,12 @@ function Loaded({ p }: { p: Profile }) {
       </div>
 
       <div className={cx("space-y-4", !bioOpen && "max-lg:[&>.bio-only]:hidden")}>
-        <section className="surface bio-only rounded-[28px] p-6">
+        <section className="surface bio-only rounded-[10px] p-6">
           <h2 className="text-lg font-semibold">About me</h2>
           <p className="mt-3 text-[15px] leading-relaxed text-cream/80">{p.bio || `${p.displayName} has not written a bio yet.`}</p>
         </section>
 
-        <section className="surface bio-only rounded-[28px] p-6">
+        <section className="surface bio-only rounded-[10px] p-6">
           <h2 className="text-lg font-semibold">More info</h2>
           <div className="mt-4 flex flex-wrap gap-2">
             <Tag>{genderLabel(p.gender)}</Tag>
@@ -229,7 +229,7 @@ function BookingCard({ p }: { p: Profile }) {
   const pr = p.provider!;
   const offered = pr.categories.map((id) => cats.data?.find((c) => c.id === id)).filter(Boolean);
   return (
-    <section id="book" className="scroll-mt-6 overflow-hidden rounded-[28px] bg-cream text-ink">
+    <section id="book" className="scroll-mt-6 overflow-hidden rounded-[10px] bg-cream text-ink">
       <div className="p-6">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
@@ -279,7 +279,7 @@ function BookingCard({ p }: { p: Profile }) {
         </div>
       </div>
       <div className="flex flex-wrap items-center justify-between gap-3 bg-ink/5 px-6 py-4">
-        <p className="max-w-sm text-xs leading-relaxed text-ink/55">Chat with {p.displayName} first to agree on the day, time and place. You pay through Meet only after {p.displayName} accepts. A booking is for time and company, never physical contact.</p>
+        <p className="max-w-sm text-xs leading-relaxed text-ink/55">Chat with {p.displayName} first to agree on the day, time and place. You pay through espenxa only after {p.displayName} accepts. A booking is for time and company, never physical contact.</p>
         <div className="grid w-full grid-cols-2 gap-2 sm:flex sm:w-auto sm:flex-wrap">
           {p.viewer.connectionId ? (
             <Link href={`/chats/${p.viewer.connectionId}`} className={buttonClass("secondary", "lg", "!bg-ink !text-cream")}>
@@ -303,7 +303,7 @@ function Reviews({ id }: { id: string }) {
   const reviews = useReviews(id);
   if (!reviews.data?.length) return null;
   return (
-    <section className="surface rounded-[28px] p-6">
+    <section className="surface rounded-[10px] p-6">
       <h2 className="text-lg font-semibold">Reviews</h2>
       <ul className="mt-5 space-y-6">
         {reviews.data.map((r) => (

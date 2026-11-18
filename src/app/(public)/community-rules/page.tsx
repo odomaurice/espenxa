@@ -9,7 +9,7 @@ const RULES = [
   ["Adults only", `Everyone on ${SITE.name} is ${SITE.minAge} or older and verified. Report anyone you think may be younger.`],
   ["Consent is never for sale", "A booking pays for someone's time and company for a social experience. It never entitles anyone to physical contact, intimacy or sexual activity. Either person can end an experience at any time."],
   ["Meet in public", "Plan first meetings in public places. Never share or ask for a home address in your profile. Locations are always shown as approximate."],
-  ["Pay through Meet", "Paid bookings are paid through the platform so both people are protected. Asking to be paid outside Meet is not allowed."],
+  ["Pay through espenxa", "Paid bookings are paid through the platform so both people are protected. Asking to be paid outside espenxa is not allowed."],
   ["Be who you say you are", "Use your own photos. No fake profiles, impersonation or misleading details."],
   ["Respect", "No harassment, threats, hate, coercion or pressure. Take no for an answer."],
   ["Nothing explicit", "No explicit photos, messages or offers anywhere on the platform."],

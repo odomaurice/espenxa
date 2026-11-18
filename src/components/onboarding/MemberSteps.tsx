@@ -241,12 +241,12 @@ export function LocationStep({ onReady }: StepProps) {
   return (
     <>
       <StepTitle title="Where are you based?" sub="Your full address is used for safety and verification only." />
-      <div className="mb-7 flex gap-3.5 rounded-[22px] bg-ok/8 p-4">
+      <div className="mb-7 flex gap-3.5 rounded-[10px] bg-ok/8 p-4">
         <span className="grid size-10 shrink-0 place-items-center rounded-full bg-ok/15 text-ok">
           <Icon icon={LockPasswordIcon} size={19} />
         </span>
         <p className="text-[13.5px] leading-relaxed text-cream/85">
-          <span className="font-semibold text-cream">Private, always.</span> Nobody on Meet ever sees your address. Others only see your city and a rounded distance, like &ldquo;about 3 km away&rdquo;, and you can hide even that.
+          <span className="font-semibold text-cream">Private, always.</span> Nobody on espenxa ever sees your address. Others only see your city and a rounded distance, like &ldquo;about 3 km away&rdquo;, and you can hide even that.
         </p>
       </div>
       {error && <Notice tone="bad" className="mb-5">{error}</Notice>}

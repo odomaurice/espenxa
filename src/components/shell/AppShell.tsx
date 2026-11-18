@@ -65,7 +65,7 @@ function useNav() {
     { href: "/profile", label: "My profile", icon: UserCircleIcon },
     { href: "/settings", label: "Settings", icon: Settings02Icon },
     { href: "/safety", label: "Help and safety", icon: Shield01Icon },
-    { href: "/", label: "Meet homepage", icon: Globe02Icon },
+    { href: "/", label: "espenxa homepage", icon: Globe02Icon },
   ];
   return { main, provider, more, unreadMsgs, unreadNotes, companion };
 }
@@ -90,7 +90,7 @@ function NavLink({ item, path }: { item: Item; path: string }) {
       aria-current={on ? "page" : undefined}
       className={cx("group relative flex h-12 items-center gap-3.5 rounded-full px-4 text-[15px] transition-colors duration-300", on ? "font-semibold text-ink" : "text-mute hover:bg-char/70 hover:text-cream")}
     >
-      {on && <motion.span layoutId="sidebar-pill" className="absolute inset-0 rounded-full bg-cream shadow-[0_10px_30px_-10px_rgb(255_255_255/0.35)]" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
+      {on && <motion.span layoutId="sidebar-pill" className="absolute inset-0 rounded-full bg-cream" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
       <motion.span className="relative" whileHover={{ rotate: -8, scale: 1.1 }} transition={{ type: "spring", stiffness: 400, damping: 15 }}>
         <Icon icon={item.icon} size={21} stroke={on ? 2.2 : 1.8} />
       </motion.span>
@@ -124,7 +124,7 @@ function Sidebar() {
         ))}
       </nav>
       {account && (
-        <div className="mt-4 flex items-center gap-3 rounded-[22px] bg-char p-3">
+        <div className="mt-4 flex items-center gap-3 rounded-[10px] bg-char p-3">
           <Link href="/profile" aria-label="My profile">
             <Avatar src={profile.data?.photos[0]} name={account.fullName} size={42} />
           </Link>
@@ -172,7 +172,7 @@ function MobileBars() {
         </div>
       </header>
       <nav aria-label="Main" className={cx("fixed inset-x-0 bottom-0 z-30 px-4 pb-[max(14px,env(safe-area-inset-bottom))] lg:hidden", inChat(path) && "hidden")}>
-        <div className="mx-auto flex h-[68px] max-w-md items-center justify-between rounded-full bg-[#161618]/92 px-2 shadow-[0_24px_60px_-12px_rgb(0_0_0/0.9)] ring-1 ring-white/8 backdrop-blur-2xl">
+        <div className="mx-auto flex h-[68px] max-w-md items-center justify-between rounded-full bg-coal/95 px-2 shadow-[0_20px_50px_-15px_rgb(26_23_21/0.35)] ring-1 ring-line backdrop-blur-2xl">
           {tabs.map((t) => {
             const on = isActive(path, t.href) || (t.href === "/profile" && ["/companion", "/settings", "/safety", "/verify", "/connections", "/notifications"].some((p) => path.startsWith(p)));
             return (

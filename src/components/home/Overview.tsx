@@ -62,7 +62,7 @@ function ToDo({ companion }: { companion: boolean }) {
 
   const loading = conns.isPending || mine.isPending;
   return (
-    <div className="surface rounded-[28px] p-5 sm:p-6">
+    <div className="surface rounded-[10px] p-5 sm:p-6">
       <div className="flex items-center justify-between">
         <h2 className="text-lg font-semibold">For you to do</h2>
         {!loading && !!items.length && <span className="text-sm text-mute">{items.length}</span>}
@@ -80,7 +80,7 @@ function ToDo({ companion }: { companion: boolean }) {
         <Stagger className="mt-4 space-y-2" inView={false} gap={0.05}>
           {items.slice(0, 5).map((it) => (
             <StaggerItem key={it.href + it.text}>
-              <Link href={it.href} className="group flex items-center gap-3 rounded-[20px] bg-char p-3 pr-4 transition-colors hover:bg-smoke">
+              <Link href={it.href} className="group flex items-center gap-3 rounded-[10px] bg-char p-3 pr-4 transition-colors hover:bg-smoke">
                 <span className={cx("grid size-10 shrink-0 place-items-center rounded-full", it.tone === "ember" ? "bg-ember/15 text-ember" : it.tone === "ok" ? "bg-ok/15 text-ok" : "bg-info/15 text-info")}>
                   <Icon icon={it.icon} size={18} />
                 </span>
@@ -100,7 +100,7 @@ function ToDo({ companion }: { companion: boolean }) {
 function CompanionNumbers() {
   const earn = useEarnings();
   const a = useQuery({ queryKey: ["provider", "analytics"], queryFn: api.provider.analytics });
-  if (earn.isPending || a.isPending) return <Skeleton className="h-[340px] rounded-[28px]" />;
+  if (earn.isPending || a.isPending) return <Skeleton className="h-[340px] rounded-[10px]" />;
   if (!earn.data || !a.data) return null;
   const e = earn.data;
   const d = a.data;
@@ -116,18 +116,18 @@ function CompanionNumbers() {
       >
         <AreaChart label="Weekly earnings, last 12 weeks" points={d.weeks.map((w) => ({ x: `Week of ${label(w.week)}`, tick: label(w.week), y: w.earnings.amountMinor }))} format={(v) => moneyCompact({ amountMinor: v, currency: d.currency })} height={220} />
       </ChartCard>
-      <div className="surface flex flex-col rounded-[28px] p-5 sm:p-6">
+      <div className="surface flex flex-col rounded-[10px] p-5 sm:p-6">
         <h2 className="text-lg font-semibold">My money</h2>
         <div className="mt-4 grid flex-1 grid-cols-2 gap-3">
-          <div className="col-span-2 rounded-[20px] bg-ok/10 p-4">
+          <div className="col-span-2 rounded-[10px] bg-ok/10 p-4">
             <p className="text-xs text-ok">Ready to withdraw</p>
             <p className="display mt-1 text-[32px] tabular">{money(e.available)}</p>
           </div>
-          <div className="rounded-[20px] bg-char p-4">
+          <div className="rounded-[10px] bg-char p-4">
             <p className="text-xs text-mute">On the way</p>
             <p className="mt-1 text-lg font-semibold tabular">{money(e.pending)}</p>
           </div>
-          <div className="rounded-[20px] bg-char p-4">
+          <div className="rounded-[10px] bg-char p-4">
             <p className="text-xs text-mute">Paid to you</p>
             <p className="mt-1 text-lg font-semibold tabular">{money(e.paidOut)}</p>
           </div>
@@ -148,7 +148,7 @@ function MemberNumbers() {
   const bookings = useBookings("customer");
   const cats = useCategories();
   const [now] = useState(() => Date.now());
-  if (bookings.isPending) return <Skeleton className="h-[320px] rounded-[28px]" />;
+  if (bookings.isPending) return <Skeleton className="h-[320px] rounded-[10px]" />;
   const paid = (bookings.data ?? []).filter((b) => SPENT.includes(b.status));
   if (!paid.length) return null;
   const currency = paid[0].breakdown.total.currency;

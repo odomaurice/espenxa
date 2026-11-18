@@ -31,7 +31,7 @@ export default function NearbyMap({ people, selfPhoto }: { people: Profile[]; se
 
   return (
     <div className="grid grid-cols-[minmax(0,1fr)] gap-5 lg:grid-cols-[minmax(0,1fr)_340px]">
-      <div className="relative aspect-[4/5] overflow-hidden rounded-[32px] bg-[#111113] sm:aspect-[16/11]">
+      <div className="relative aspect-[4/5] overflow-hidden rounded-[10px] bg-char sm:aspect-[16/11]">
         <MapBackdrop />
         <div className="pointer-events-none absolute top-1/2 left-1/2 size-[70%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-white/8" aria-hidden />
         <div className="pointer-events-none absolute top-1/2 left-1/2 size-[38%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-white/10" aria-hidden />
@@ -56,7 +56,7 @@ export default function NearbyMap({ people, selfPhoto }: { people: Profile[]; se
             >
               {on ? (
                 <span className="flex flex-col items-center">
-                  <span className="rounded-full bg-ember p-1 shadow-[0_20px_40px_-10px_rgb(255_90_54/0.7)]">
+                  <span className="rounded-full bg-ember p-1 shadow-[0_20px_40px_-10px_rgb(180_71_44/0.45)]">
                     <Photo src={p.photos[0]} alt="" className="size-[84px] rounded-full sm:size-[104px]" />
                   </span>
                   <svg width="22" height="14" viewBox="0 0 22 14" className="-mt-1 text-ember" aria-hidden>
@@ -64,7 +64,7 @@ export default function NearbyMap({ people, selfPhoto }: { people: Profile[]; se
                   </svg>
                 </span>
               ) : (
-                <span className="block rounded-full bg-white/15 p-[3px] backdrop-blur hover:bg-white/30">
+                <span className="block rounded-full bg-white/15 p-[3px] backdrop-blur hover:bg-cream/85/30">
                   <Photo src={p.photos[0]} alt="" className="size-12 rounded-full sm:size-14" />
                 </span>
               )}
@@ -82,7 +82,7 @@ export default function NearbyMap({ people, selfPhoto }: { people: Profile[]; se
 
       <div className="space-y-4">
         {current && (
-          <Link href={`/people/${current.id}`} className="group relative block overflow-hidden rounded-[28px]">
+          <Link href={`/people/${current.id}`} className="group relative block overflow-hidden rounded-[10px]">
             <Photo src={current.photos[0]} alt="" className="aspect-[4/3.4] w-full transition-transform duration-700 group-hover:scale-105 lg:aspect-[4/4.4]" />
             <div className="photo-shade absolute inset-0" />
             {current.provider && <RankBadge rank={current.provider.rank} size="sm" className="glass-dark absolute top-3 left-3" />}
@@ -102,7 +102,7 @@ export default function NearbyMap({ people, selfPhoto }: { people: Profile[]; se
             </div>
           </Link>
         )}
-        <ul className="surface divide-y divide-line rounded-[28px] px-2 py-1">
+        <ul className="surface divide-y divide-line rounded-[10px] px-2 py-1">
           {people.map((p) => (
             <li key={p.id}>
               <button type="button" onClick={() => setSel(p.id)} className={cx("flex w-full items-center gap-3 rounded-2xl px-3 py-3 text-left transition-colors", p.id === sel ? "bg-char" : "hover:bg-char/60")}>

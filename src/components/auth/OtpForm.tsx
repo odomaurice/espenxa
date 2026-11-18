@@ -47,7 +47,7 @@ export default function OtpForm() {
   useEffect(() => {
     if (!devTools || !account) return;
     devTools.outbox().then((box) => {
-      const m = box.find((x) => /Your Meet code is (\d{6})/.test(x.body));
+      const m = box.find((x) => /Your espenxa code is (\d{6})/.test(x.body));
       setDevCode(m ? m.body.match(/(\d{6})/)![1] : null);
     });
   }, [account, wait]);

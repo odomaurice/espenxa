@@ -71,7 +71,7 @@ function Feed() {
 
         <Reveal as="section">
           <SectionHead title="Trending this week" action={<SeeAll href="/discover?mode=browse" />} />
-          {people.isPending ? <Skeleton className="h-125 rounded-4xl" /> : <Trending people={trending} />}
+          {people.isPending ? <Skeleton className="h-125 rounded-[10px]" /> : <Trending people={trending} />}
         </Reveal>
 
         <Reveal as="section">
@@ -179,8 +179,8 @@ function Trending({ people }: { people: Profile[] }) {
   };
 
   return (
-    <Spotlight className="rounded-4xl bg-coal px-4 pt-8 pb-6 sm:px-8">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(70%_60%_at_50%_0%,rgb(255_90_54/0.18),transparent_70%)]" aria-hidden />
+    <Spotlight className="rounded-[10px] bg-coal px-4 pt-8 pb-6 sm:px-8">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(70%_60%_at_50%_0%,rgb(180_71_44/0.10),transparent_70%)]" aria-hidden />
       <div className="relative mx-auto h-100 max-w-160 sm:h-107.5">
         {people.map((p, k) => {
           let offset = k - idx;
@@ -207,7 +207,7 @@ function Trending({ people }: { people: Profile[] }) {
                 type="button"
                 onClick={() => (centre ? router.push(`/people/${p.id}`) : setI((x) => x + offset))}
                 aria-label={centre ? `Open ${p.displayName}'s profile` : `Show ${p.displayName}`}
-                className="relative block size-full overflow-hidden rounded-[30px] text-left shadow-[0_30px_80px_-20px_rgb(0_0_0/0.9)] ring-1 ring-white/10"
+                className="relative block size-full overflow-hidden rounded-[10px] text-left shadow-[0_30px_80px_-20px_rgb(0_0_0/0.9)] ring-1 ring-white/10"
               >
                 <Photo src={p.photos[0]} alt="" className="pointer-events-none size-full" />
                 <div className="photo-shade absolute inset-0" />
@@ -218,7 +218,7 @@ function Trending({ people }: { people: Profile[] }) {
                         {p.provider ? <RankBadge rank={p.provider.rank} size="sm" className="glass-dark" /> : <span />}
                         {p.activeRecently && <LivePill />}
                       </div>
-                      <motion.div className="glass absolute inset-x-3 bottom-3 rounded-[22px] p-4" initial={{ y: 30, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.12, type: "spring", stiffness: 300, damping: 26 }}>
+                      <motion.div className="glass absolute inset-x-3 bottom-3 rounded-[10px] p-4" initial={{ y: 30, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.12, type: "spring", stiffness: 300, damping: 26 }}>
                         <p className="flex items-center gap-1.5 text-[22px] font-semibold tracking-tight">
                           {p.displayName}
                           {p.age !== null && <span className="font-light text-cream/75">{p.age}</span>}
@@ -269,8 +269,8 @@ function ExperienceCard({ p }: { p: Profile }) {
   const names = pr.categories.map((id) => cats.data?.find((c) => c.id === id)?.name).filter(Boolean).slice(0, 2).join(", ");
   return (
     <Lift>
-      <Link href={`/people/${p.id}#book`} className="surface group flex w-75 gap-4 rounded-[26px] p-3 pr-5 transition-colors hover:bg-char">
-        <span className="h-29 w-23 shrink-0 overflow-hidden rounded-[20px]">
+      <Link href={`/people/${p.id}#book`} className="surface group flex w-75 gap-4 rounded-[10px] p-3 pr-5 transition-colors hover:bg-char">
+        <span className="h-29 w-23 shrink-0 overflow-hidden rounded-[10px]">
           <Photo src={p.photos[0]} alt="" className="size-full transition-transform duration-700 group-hover:scale-110" />
         </span>
         <div className="flex min-w-0 flex-1 flex-col py-1">
@@ -304,7 +304,7 @@ function RightRail() {
       {upcoming && (
         <StaggerItem className="hidden xl:block">
           <Lift y={-4} scale={1.01}>
-            <Link href={`/bookings/${upcoming.id}`} className="relative block overflow-hidden rounded-[26px] bg-ember p-5 text-ink">
+            <Link href={`/bookings/${upcoming.id}`} className="relative block overflow-hidden rounded-[10px] bg-ember p-5 text-ink">
               <span className="pointer-events-none absolute -top-16 -right-16 size-48 rounded-full bg-white/18 blur-2xl" aria-hidden />
               <p className="relative flex items-center gap-2 text-xs font-semibold opacity-80">
                 <Icon icon={Calendar03Icon} size={15} stroke={2.2} /> Next booking
@@ -325,7 +325,7 @@ function RightRail() {
       )}
 
       {!!incoming.length && (
-        <StaggerItem className="surface hidden rounded-[26px] p-5 xl:block">
+        <StaggerItem className="surface hidden rounded-[10px] p-5 xl:block">
           <p className="font-semibold">Connection requests</p>
           <ul className="mt-4 space-y-4">
             <AnimatePresence initial={false}>
@@ -353,7 +353,7 @@ function RightRail() {
         </StaggerItem>
       )}
 
-      <StaggerItem className="surface rounded-[26px] p-5">
+      <StaggerItem className="surface rounded-[10px] p-5">
         <div className="flex items-center justify-between">
           <p className="font-semibold">Suggested for you</p>
           <Link href="/discover" className="text-xs text-mute hover:text-cream">

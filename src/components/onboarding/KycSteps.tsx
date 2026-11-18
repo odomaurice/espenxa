@@ -3,7 +3,7 @@
 /*
  * Identity verification: government ID, then a live selfie. In production
  * both go straight to the KYC provider (face match, liveness, document
- * checks) and Meet keeps only the decision. Nothing here verifies anything
+ * checks) and espenxa keeps only the decision. Nothing here verifies anything
  * on its own; staff or the provider approve the account afterwards.
  */
 import { Camera01Icon, CheckmarkBadge01Icon, Image01Icon, Refresh01Icon, Tick02Icon, Upload04Icon } from "@hugeicons/core-free-icons";
@@ -48,7 +48,7 @@ function DropZone({ label, file, onFile }: { label: string; file: File | null; o
         setDrag(false);
         onFile(e.dataTransfer.files[0] ?? null);
       }}
-      className={cx("group relative flex aspect-[1.586] w-full flex-col items-center justify-center overflow-hidden rounded-[22px] border-2 border-dashed transition-colors", drag ? "border-ember bg-ember/8" : file ? "border-transparent bg-char" : "border-line-hi bg-coal hover:border-cream/30")}
+      className={cx("group relative flex aspect-[1.586] w-full flex-col items-center justify-center overflow-hidden rounded-[10px] border-2 border-dashed transition-colors", drag ? "border-ember bg-ember/8" : file ? "border-transparent bg-char" : "border-line-hi bg-coal hover:border-cream/30")}
     >
       {shown ? (
         // eslint-disable-next-line @next/next/no-img-element -- local preview of a file the user picked
@@ -101,7 +101,7 @@ export function IdStep() {
       <div className="space-y-6">
         <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3">
           {ID_TYPES.map((t) => (
-            <button key={t.id} type="button" aria-pressed={type === t.id} onClick={() => setType(t.id)} className={cx("rounded-[18px] px-4 py-3.5 text-left text-sm font-medium transition-colors", type === t.id ? "bg-cream text-ink" : "bg-char hover:bg-smoke")}>
+            <button key={t.id} type="button" aria-pressed={type === t.id} onClick={() => setType(t.id)} className={cx("rounded-[10px] px-4 py-3.5 text-left text-sm font-medium transition-colors", type === t.id ? "bg-cream text-ink" : "bg-char hover:bg-smoke")}>
               {t.label}
             </button>
           ))}
@@ -151,7 +151,7 @@ export function IdStep() {
           Submit document
         </Button>
         <p className="text-xs leading-relaxed text-faint">
-          Your document is encrypted and sent to our identity verification partner. Only authorised Meet verification staff can view it, every view is logged, and it is never shown to other members.
+          Your document is encrypted and sent to our identity verification partner. Only authorised espenxa verification staff can view it, every view is logged, and it is never shown to other members.
           {/* TODO(team): name the KYC provider per country once contracts are signed. */}
         </p>
         {IS_MOCK && <DevNote>Development build: the document is kept only in this browser so staff can review it in the demo console. Nothing is verified automatically.</DevNote>}
@@ -248,10 +248,10 @@ export function SelfieStep() {
 
   return (
     <>
-      <StepTitle title="Take a quick selfie" sub="We match it to your ID photo so everyone on Meet knows profiles are real. It is never shown on your profile." />
+      <StepTitle title="Take a quick selfie" sub="We match it to your ID photo so everyone on espenxa knows profiles are real. It is never shown on your profile." />
       {error && <Notice tone="bad" className="mb-5">{error}</Notice>}
 
-      <div className="relative mx-auto aspect-[3/4] w-full max-w-[380px] overflow-hidden rounded-[36px] bg-char ring-1 ring-white/10">
+      <div className="relative mx-auto aspect-[3/4] w-full max-w-[380px] overflow-hidden rounded-[10px] bg-char ring-1 ring-white/10">
         <video ref={video} playsInline muted className={cx("absolute inset-0 size-full -scale-x-100 object-cover", state !== "live" && "hidden")} />
         {/* eslint-disable-next-line @next/next/no-img-element -- local capture preview */}
         {shot && state === "captured" && <img src={shot.url} alt="Your selfie" className="absolute inset-0 size-full object-cover" />}
@@ -346,7 +346,7 @@ export function SelfieStep() {
 
 function Submitted({ title, sub, onRedo, redoLabel }: { title: string; sub: string; onRedo: () => void; redoLabel: string }) {
   return (
-    <motion.div initial={{ scale: 0.96, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: "spring", stiffness: 300, damping: 24 }} className="surface flex flex-col items-center rounded-[28px] px-6 py-12 text-center">
+    <motion.div initial={{ scale: 0.96, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: "spring", stiffness: 300, damping: 24 }} className="surface flex flex-col items-center rounded-[10px] px-6 py-12 text-center">
       <motion.span initial={{ scale: 0, rotate: -30 }} animate={{ scale: 1, rotate: 0 }} transition={{ type: "spring", stiffness: 400, damping: 14, delay: 0.1 }} className="grid size-20 place-items-center rounded-full bg-ok/15 text-ok">
         <Icon icon={CheckmarkBadge01Icon} size={38} stroke={2} />
       </motion.span>

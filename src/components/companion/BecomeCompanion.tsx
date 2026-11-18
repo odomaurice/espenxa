@@ -14,7 +14,7 @@ import { RANKS } from "@/lib/labels";
 const PERKS = [
   [Coins01Icon, "Your prices", "Set your own rate for 1 hour up to 2 days. You can also offer your time for free."],
   [Calendar03Icon, "Your schedule", "Accept, decline or suggest a change on every request."],
-  [Shield01Icon, "Paid safely", "Members pay through Meet. You are paid after the experience is confirmed."],
+  [Shield01Icon, "Paid safely", "Members pay through espenxa. You are paid after the experience is confirmed."],
   [ChampionIcon, "Grow your level", "Reliability and great reviews take you from Bronze to Diamond."],
 ] as const;
 
@@ -33,7 +33,7 @@ export default function BecomeCompanion() {
 
   return (
     <div className="mx-auto max-w-4xl">
-      <Reveal className="relative overflow-hidden rounded-[36px] bg-coal">
+      <Reveal className="relative overflow-hidden rounded-[10px] bg-coal">
         <div className="grid md:grid-cols-[1.1fr_1fr]">
           <div className="p-8 sm:p-10">
             <p className="text-sm font-medium text-ember">Become a companion</p>
@@ -54,7 +54,7 @@ export default function BecomeCompanion() {
 
       <Stagger className="mt-6 grid gap-4 sm:grid-cols-2" gap={0.06}>
         {PERKS.map(([icon, t, s]) => (
-          <StaggerItem key={t} className="surface rounded-[26px] p-6">
+          <StaggerItem key={t} className="surface rounded-[10px] p-6">
             <span className="grid size-11 place-items-center rounded-full bg-char">
               <Icon icon={icon} size={20} />
             </span>

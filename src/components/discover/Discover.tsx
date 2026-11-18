@@ -96,9 +96,9 @@ export default function Discover() {
 
       {list.isPending ? (
         mode === "for_you" ? (
-          <Skeleton className="mx-auto aspect-[3/4.3] w-full max-w-[440px] rounded-[36px] lg:mx-0" />
+          <Skeleton className="mx-auto aspect-[3/4.3] w-full max-w-[440px] rounded-[10px] lg:mx-0" />
         ) : mode === "nearby" ? (
-          <Skeleton className="aspect-[16/11] w-full rounded-[32px]" />
+          <Skeleton className="aspect-[16/11] w-full rounded-[10px]" />
         ) : (
           <Grid>
             {Array.from({ length: 8 }).map((_, i) => (

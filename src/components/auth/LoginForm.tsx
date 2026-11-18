@@ -52,7 +52,7 @@ export default function LoginForm({ next }: { next: string }) {
       </form>
 
       <p className="mt-6 text-center text-sm text-mute">
-        New to Meet?{" "}
+        New to espenxa?{" "}
         <Link href="/register" className="font-medium text-cream underline-offset-4 hover:underline">
           Create an account
         </Link>

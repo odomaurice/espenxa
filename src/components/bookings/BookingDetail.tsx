@@ -62,7 +62,7 @@ function Loaded({ b }: { b: Booking }) {
 
       <div className="grid grid-cols-[minmax(0,1fr)] gap-5 lg:grid-cols-[minmax(0,1fr)_380px]">
         <div className="space-y-5">
-          <motion.section initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} className="relative overflow-hidden rounded-[30px] bg-coal p-5 sm:p-8">
+          <motion.section initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} className="relative overflow-hidden rounded-[10px] bg-coal p-5 sm:p-8">
             <div className="pointer-events-none absolute -top-20 -right-20 size-64 rounded-full bg-ember/14 blur-3xl" aria-hidden />
             <div className="relative flex flex-wrap items-start justify-between gap-4">
               <div className="flex items-center gap-4">
@@ -77,13 +77,13 @@ function Loaded({ b }: { b: Booking }) {
               </Badge>
             </div>
             <h1 className="display relative mt-5 text-[28px] leading-tight sm:mt-6 sm:text-[36px]">{cat}</h1>
-            <div className="relative mt-5 grid gap-px overflow-hidden rounded-[20px] sm:grid-cols-3 sm:gap-3 sm:overflow-visible sm:rounded-none">
+            <div className="relative mt-5 grid gap-px overflow-hidden rounded-[10px] sm:grid-cols-3 sm:gap-3 sm:overflow-visible sm:rounded-none">
               {[
                 [Calendar03Icon, "When", dateTime(b.startAt, b.timezone)],
                 [Clock01Icon, "How long", hoursLabel(b.hours)],
                 [Location01Icon, "Where", b.meetingArea],
               ].map(([icon, label, value]) => (
-                <div key={label as string} className="flex items-center gap-3.5 bg-char px-4 py-3 sm:block sm:rounded-[20px] sm:p-4">
+                <div key={label as string} className="flex items-center gap-3.5 bg-char px-4 py-3 sm:block sm:rounded-[10px] sm:p-4">
                   <Icon icon={icon as typeof Calendar03Icon} size={18} className="shrink-0 text-mute" />
                   <div className="min-w-0 sm:mt-3">
                     <p className="text-xs text-mute">{label as string}</p>
@@ -92,7 +92,7 @@ function Loaded({ b }: { b: Booking }) {
                 </div>
               ))}
             </div>
-            {b.notes && <p className="relative mt-4 rounded-[20px] bg-char p-4 text-[14.5px] leading-relaxed text-cream/85">&ldquo;{b.notes}&rdquo;</p>}
+            {b.notes && <p className="relative mt-4 rounded-[10px] bg-char p-4 text-[14.5px] leading-relaxed text-cream/85">&ldquo;{b.notes}&rdquo;</p>}
             {conn && (
               <Link href={`/chats/${conn.id}`} className={buttonClass("secondary", "md", "relative mt-5")}>
                 <Icon icon={Message01Icon} size={16} /> Message {other.displayName}
@@ -111,7 +111,7 @@ function Loaded({ b }: { b: Booking }) {
             </Notice>
           )}
 
-          <section className="surface rounded-[28px] p-6">
+          <section className="surface rounded-[10px] p-6">
             <h2 className="text-lg font-semibold">Timeline</h2>
             <ol className="relative mt-5 space-y-5 border-l border-line pl-6">
               {[...b.events].reverse().map((e, i) => (
@@ -124,10 +124,10 @@ function Loaded({ b }: { b: Booking }) {
             </ol>
           </section>
 
-          <section className="surface rounded-[28px] p-6">
+          <section className="surface rounded-[10px] p-6">
             <h2 className="text-lg font-semibold">Cancellation policy</h2>
             <p className="mt-1 text-sm text-mute">What happens to the money if the member cancels after paying. If the companion cancels, the member always gets everything back.</p>
-            <div className="mt-4 overflow-hidden rounded-[18px] bg-char">
+            <div className="mt-4 overflow-hidden rounded-[10px] bg-char">
               <table className="w-full text-sm">
                 <thead className="text-xs text-mute">
                   <tr>
@@ -148,14 +148,14 @@ function Loaded({ b }: { b: Booking }) {
               </table>
             </div>
             <p className="mt-3 text-xs text-faint">
-              Meet keeps {b.rules.commissionPct}% of what the companion receives.{" "}
+              espenxa keeps {b.rules.commissionPct}% of what the companion receives.{" "}
               {b.role === "provider" && `If you cancel less than ${b.rules.latePenalty.withinHours} hours before, ${b.rules.latePenalty.pct}% of the price is taken from your next payout.`}
             </p>
           </section>
         </div>
 
         <aside className="space-y-5 lg:sticky lg:top-8 lg:self-start">
-          <section className="rounded-[28px] bg-cream p-6 text-ink">
+          <section className="rounded-[10px] bg-cream p-6 text-ink">
             <h2 className="text-lg font-semibold">Payment</h2>
             {b.role === "customer" ? (
               <>
@@ -175,7 +175,7 @@ function Loaded({ b }: { b: Booking }) {
               <>
                 <dl className="mt-4 space-y-2.5 text-[14.5px]">
                   <Row label={`${hoursLabel(b.hours)}, booked by ${b.customer.displayName}`} value={b.breakdown.price.amountMinor ? money(b.breakdown.price) : "Free"} />
-                  <Row label={`Meet's share (${b.rules.commissionPct}%)`} value={b.breakdown.commission ? `−${money(b.breakdown.commission)}` : "None"} muted />
+                  <Row label={`espenxa's share (${b.rules.commissionPct}%)`} value={b.breakdown.commission ? `−${money(b.breakdown.commission)}` : "None"} muted />
                 </dl>
                 <div className="mt-4 flex items-baseline justify-between border-t border-ink/10 pt-4">
                   <span className="font-medium">You get</span>
@@ -270,7 +270,7 @@ function Actions({ b }: { b: Booking }) {
     );
   if (["confirmed", "in_progress"].includes(b.status) && checkInOpen && !b.checkIns[b.role])
     buttons.push(
-      <Button key="ci" variant="primary" size="lg" onClick={() => run({ type: "check_in" }, { title: "Check in now?", body: `Let ${other} and Meet know you have arrived. Only check in once you are at the meeting place.`, confirmLabel: "Check in" })}>
+      <Button key="ci" variant="primary" size="lg" onClick={() => run({ type: "check_in" }, { title: "Check in now?", body: `Let ${other} and espenxa know you have arrived. Only check in once you are at the meeting place.`, confirmLabel: "Check in" })}>
         <Icon icon={Location01Icon} size={17} /> I have arrived
       </Button>,
     );
@@ -306,7 +306,7 @@ function Actions({ b }: { b: Booking }) {
     );
 
   return (
-    <section className="surface rounded-[28px] p-6">
+    <section className="surface rounded-[10px] p-6">
       <h2 className="text-lg font-semibold">What next</h2>
       <p className="mt-1 text-sm text-mute">{nextLine(b)}</p>
       {error && (
@@ -333,7 +333,7 @@ function nextLine(b: Booking): string {
     case "adjustment_proposed":
       return b.proposal?.by === b.role ? "Waiting for a reply to your suggested change." : "A change was suggested. Accept it or keep the original.";
     case "accepted":
-      return c ? "Accepted. Pay through Meet to confirm your booking." : "Waiting for the member to pay. The booking is confirmed once payment is verified.";
+      return c ? "Accepted. Pay through espenxa to confirm your booking." : "Waiting for the member to pay. The booking is confirmed once payment is verified.";
     case "confirmed":
       return "Confirmed. Check in when you arrive, and share your plans with a trusted contact.";
     case "in_progress":
@@ -341,7 +341,7 @@ function nextLine(b: Booking): string {
     case "provider_completed":
       return c ? "Your companion marked this complete. Confirm it, or report a problem." : "Waiting for the member to confirm completion.";
     case "completed":
-      return "Completed. Thank you for keeping Meet respectful and reliable.";
+      return "Completed. Thank you for keeping espenxa respectful and reliable.";
     case "disputed":
       return "Under review by our team. Payout is on hold until it is resolved.";
     default:
@@ -361,16 +361,16 @@ function Settlement({ b }: { b: Booking }) {
     ? [
         ["Refunded to you", money(s.refund)],
         [`${b.provider.displayName} received`, money(s.companion)],
-        ["Meet kept", money(s.platform)],
+        ["espenxa kept", money(s.platform)],
       ]
     : [
         [`Refunded to ${b.customer.displayName}`, money(s.refund)],
         ["You received", money(s.companion)],
-        ["Meet kept", money(s.platform)],
+        ["espenxa kept", money(s.platform)],
         ...(s.penalty ? ([["Late cancellation penalty", `−${money(s.penalty)}`]] as [string, string][]) : []),
       ];
   return (
-    <div className="mt-5 rounded-[18px] bg-ink/6 p-4">
+    <div className="mt-5 rounded-[10px] bg-ink/6 p-4">
       <p className="text-sm font-semibold">What happened to the money</p>
       <dl className="mt-2 space-y-1.5 text-[13.5px]">
         {rows.map(([k, v]) => (
@@ -395,7 +395,7 @@ function CancelDialog({ b, onClose, onDone }: { b: Booking; onClose: () => void;
     <Dialog open onClose={onClose} title={paid ? "Cancel this booking?" : "Withdraw this request?"}>
       <div className="space-y-5">
         {paid && customer && (
-          <div className="rounded-[20px] bg-char p-4">
+          <div className="rounded-[10px] bg-char p-4">
             {quote.data ? (
               <>
                 <p className="text-sm text-mute">Cancelling about {Math.floor(quote.data.noticeHours)} hours before the start:</p>
@@ -412,7 +412,7 @@ function CancelDialog({ b, onClose, onDone }: { b: Booking; onClose: () => void;
                       <p className="text-xs text-mute">For keeping the time free</p>
                     </div>
                     <div className="rounded-2xl bg-smoke p-3">
-                      <p className="text-xs text-mute">Meet keeps</p>
+                      <p className="text-xs text-mute">espenxa keeps</p>
                       <p className="mt-1 text-lg font-semibold tabular">{money(quote.data.platform)}</p>
                       <p className="text-xs text-mute">{b.rules.commissionPct}% of {b.provider.displayName}&apos;s part</p>
                     </div>
@@ -429,7 +429,7 @@ function CancelDialog({ b, onClose, onDone }: { b: Booking; onClose: () => void;
           <>
             {quote.data ? (
               <div className="space-y-2">
-                <div className="rounded-[20px] bg-char p-4 text-sm">
+                <div className="rounded-[10px] bg-char p-4 text-sm">
                   <p className="text-mute">{b.customer.displayName} gets everything back</p>
                   <p className="mt-1 text-2xl font-semibold tabular">{money(quote.data.refund)}</p>
                 </div>

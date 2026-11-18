@@ -52,7 +52,7 @@ export default function CompanionDashboard() {
       />
 
       {!!requests.length && (
-        <section className="surface rounded-[28px] p-6">
+        <section className="surface rounded-[10px] p-6">
           <h2 className="text-lg font-semibold">Waiting for your answer</h2>
           {!requests.length ? (
             <p className="mt-3 text-sm text-mute">No new requests right now.</p>
@@ -61,7 +61,7 @@ export default function CompanionDashboard() {
               {requests.map((b) => (
                 <li key={b.id}>
                   <Lift y={-2} scale={1.005}>
-                    <Link href={`/bookings/${b.id}`} className="flex items-center gap-3 rounded-[20px] bg-char p-3 transition-colors hover:bg-smoke">
+                    <Link href={`/bookings/${b.id}`} className="flex items-center gap-3 rounded-[10px] bg-char p-3 transition-colors hover:bg-smoke">
                       <Avatar src={b.customer.photo} name={b.customer.displayName} size={44} />
                       <span className="min-w-0 flex-1">
                         <span className="block font-semibold">{b.customer.displayName}</span>
@@ -80,7 +80,7 @@ export default function CompanionDashboard() {
       )}
 
       <div className="grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-        <section className="surface rounded-[28px] p-6">
+        <section className="surface rounded-[10px] p-6">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold">Earnings</h2>
             <Icon icon={Wallet01Icon} size={20} className="text-mute" />
@@ -88,19 +88,19 @@ export default function CompanionDashboard() {
           {e && (
             <>
               <Stagger className="mt-5 grid grid-cols-2 gap-3" inView={false} gap={0.06}>
-                <StaggerItem className="rounded-[20px] bg-ok/10 p-4">
+                <StaggerItem className="rounded-[10px] bg-ok/10 p-4">
                   <p className="text-xs text-ok">Ready to withdraw</p>
                   <p className="mt-1.5 text-2xl font-semibold tabular">{money(e.available)}</p>
                 </StaggerItem>
-                <StaggerItem className="rounded-[20px] bg-char p-4">
+                <StaggerItem className="rounded-[10px] bg-char p-4">
                   <p className="text-xs text-mute">On the way (after the booking finishes)</p>
                   <p className="mt-1.5 text-2xl font-semibold tabular">{money(e.pending)}</p>
                 </StaggerItem>
-                <StaggerItem className="rounded-[20px] bg-char p-4">
+                <StaggerItem className="rounded-[10px] bg-char p-4">
                   <p className="text-xs text-mute">Paid to you</p>
                   <p className="mt-1.5 text-lg font-semibold tabular">{money(e.paidOut)}</p>
                 </StaggerItem>
-                <StaggerItem className="rounded-[20px] bg-char p-4">
+                <StaggerItem className="rounded-[10px] bg-char p-4">
                   <p className="text-xs text-mute">Paid when members cancelled late</p>
                   <p className="mt-1.5 text-lg font-semibold tabular">{money(e.compensation)}</p>
                 </StaggerItem>
@@ -132,7 +132,7 @@ export default function CompanionDashboard() {
           )}
         </section>
 
-        <section className="surface rounded-[28px] p-6">
+        <section className="surface rounded-[10px] p-6">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold">Upcoming</h2>
             <Link href="/bookings" className="flex items-center gap-1 text-sm text-mute hover:text-cream">
@@ -145,7 +145,7 @@ export default function CompanionDashboard() {
             <ul className="mt-4 space-y-2">
               {upcoming.map((b) => (
                 <li key={b.id}>
-                  <Link href={`/bookings/${b.id}`} className="flex items-center gap-3 rounded-[20px] bg-char p-3 transition-colors hover:bg-smoke">
+                  <Link href={`/bookings/${b.id}`} className="flex items-center gap-3 rounded-[10px] bg-char p-3 transition-colors hover:bg-smoke">
                     <Avatar src={b.customer.photo} name={b.customer.displayName} size={40} />
                     <span className="min-w-0 flex-1 text-sm">
                       <span className="block font-semibold">{b.customer.displayName}</span>
@@ -160,14 +160,14 @@ export default function CompanionDashboard() {
         </section>
       </div>
 
-      <motion.section initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="relative overflow-hidden rounded-[32px] bg-coal p-5 sm:p-8">
+      <motion.section initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="relative overflow-hidden rounded-[10px] bg-coal p-5 sm:p-8">
         <div className="pointer-events-none absolute -top-24 -right-16 size-80 rounded-full bg-gold/10 blur-3xl" aria-hidden />
         <div className="relative grid grid-cols-[auto_1fr] items-center gap-5 sm:gap-8">
           <motion.div
             initial={{ scale: 0.6, rotate: -10, opacity: 0 }}
             animate={{ scale: 1, rotate: 0, opacity: 1 }}
             transition={{ type: "spring", stiffness: 200, damping: 14 }}
-            className="grid size-20 place-items-center rounded-[24px] bg-char sm:size-32 sm:rounded-[32px]"
+            className="grid size-20 place-items-center rounded-[10px] bg-char sm:size-32 sm:rounded-[10px]"
           >
             <RankMark rank={p.rank} className={cx("size-10 sm:size-16", RANK_TEXT[p.rank])} />
           </motion.div>
@@ -208,7 +208,7 @@ export default function CompanionDashboard() {
             ["Requests accepted", pct(p.acceptanceRate)],
             ["Cancelled by you", pct(p.cancellationRate)],
           ].map(([k, v]) => (
-            <div key={k} className="rounded-[20px] bg-char p-4">
+            <div key={k} className="rounded-[10px] bg-char p-4">
               <p className="text-xs text-mute">{k}</p>
               <p className="mt-1.5 text-2xl font-semibold tabular">{v}</p>
             </div>
@@ -218,7 +218,7 @@ export default function CompanionDashboard() {
 
       <EarningsCharts />
 
-      <section className="surface rounded-[28px] p-6">
+      <section className="surface rounded-[10px] p-6">
         <h2 className="text-lg font-semibold">Why your level changed</h2>
         <p className="mt-1 text-xs text-mute">Your level depends on reliability and reviews, never on how much you earn. Member cancellations never count against you.</p>
         <ul className="mt-4 space-y-3">
@@ -246,7 +246,7 @@ function EarningsCharts() {
     queryKey: ["provider", "analytics"],
     queryFn: api.provider.analytics,
   });
-  if (a.isPending) return <Skeleton className="h-[360px] rounded-[28px]" />;
+  if (a.isPending) return <Skeleton className="h-[360px] rounded-[10px]" />;
   if (a.isError) return null;
   const d = a.data;
   const badge = d.simulated ? (

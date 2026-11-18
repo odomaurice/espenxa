@@ -80,7 +80,7 @@ function ConnectionList() {
     <ul className="grid grid-cols-[minmax(0,1fr)] gap-3 md:grid-cols-2">
       <AnimatePresence initial={false}>
         {conns.data.map((c, i) => (
-          <motion.li key={c.id} layout initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0, transition: { delay: i * 0.04 } }} exit={{ opacity: 0, scale: 0.95 }} className="surface flex items-center gap-3 rounded-[24px] p-3.5 sm:gap-4 sm:p-4">
+          <motion.li key={c.id} layout initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0, transition: { delay: i * 0.04 } }} exit={{ opacity: 0, scale: 0.95 }} className="surface flex items-center gap-3 rounded-[10px] p-3.5 sm:gap-4 sm:p-4">
             <Link href={`/people/${c.person.id}`}>
               <Avatar src={c.person.photo} name={c.person.displayName} size={52} ring />
             </Link>
@@ -135,7 +135,7 @@ function RequestList() {
     <ul className="grid grid-cols-[minmax(0,1fr)] gap-3 md:grid-cols-2">
       <AnimatePresence initial={false}>
         {reqs.data.map((r) => (
-          <motion.li key={r.id} layout exit={{ opacity: 0, x: 40 }} className="surface rounded-[24px] p-5">
+          <motion.li key={r.id} layout exit={{ opacity: 0, x: 40 }} className="surface rounded-[10px] p-5">
             <div className="flex items-center gap-4">
               <Link href={`/people/${r.person.id}`}>
                 <Avatar src={r.person.photo} name={r.person.displayName} size={56} />

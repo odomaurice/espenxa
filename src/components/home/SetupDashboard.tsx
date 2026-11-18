@@ -51,7 +51,7 @@ export default function SetupDashboard() {
   const [approving, setApproving] = useState(false);
   const [err, setErr] = useState<string | null>(null);
 
-  if (!account || !status.data) return <Skeleton className="h-[420px] rounded-[32px]" />;
+  if (!account || !status.data) return <Skeleton className="h-[420px] rounded-[10px]" />;
   const s = status.data;
   const done = s.steps.filter((x) => x.done).length;
   const kycIn = s.steps.filter((x) => x.id === "id_document" || x.id === "selfie").every((x) => x.done);
@@ -71,14 +71,14 @@ export default function SetupDashboard() {
   return (
     <div className="space-y-8">
       <header>
-        <p className="text-sm text-mute">Welcome to Meet,</p>
+        <p className="text-sm text-mute">Welcome to espenxa,</p>
         <h1 className="display mt-1 text-[36px] md:text-[44px]">
           {account.fullName.split(" ")[0]}
           <span className="text-ember">.</span>
         </h1>
       </header>
 
-      <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }} className="relative overflow-hidden rounded-[32px] bg-coal p-6 sm:p-8">
+      <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }} className="relative overflow-hidden rounded-[10px] bg-coal p-6 sm:p-8">
         <div className="pointer-events-none absolute -top-24 -right-24 size-80 rounded-full bg-ember/18 blur-3xl" aria-hidden />
         <div className="relative flex flex-col gap-8 md:flex-row md:items-center">
           <Ring value={done} total={s.steps.length} />
@@ -86,7 +86,7 @@ export default function SetupDashboard() {
             <span className={cx("inline-flex h-7 items-center gap-1.5 rounded-full px-3 text-xs font-semibold", { ok: "bg-ok/15 text-ok", warn: "bg-warn/15 text-warn", bad: "bg-bad/15 text-bad", mute: "bg-smoke text-mute" }[v.tone])}>
               <Icon icon={s.complete ? Clock01Icon : LockPasswordIcon} size={13} stroke={2.2} /> {s.complete ? v.label : "Setup in progress"}
             </span>
-            <h2 className="display mt-4 text-[28px] sm:text-[32px]">{s.complete ? (s.verification === "pending" ? "We are reviewing your identity" : "Verification needs attention") : `${s.steps.length - done} ${s.steps.length - done === 1 ? "step" : "steps"} left before Meet opens`}</h2>
+            <h2 className="display mt-4 text-[28px] sm:text-[32px]">{s.complete ? (s.verification === "pending" ? "We are reviewing your identity" : "Verification needs attention") : `${s.steps.length - done} ${s.steps.length - done === 1 ? "step" : "steps"} left before espenxa opens`}</h2>
             <p className="mt-2 max-w-lg text-[15px] text-mute">
               {s.complete
                 ? s.verification === "pending"
@@ -149,7 +149,7 @@ export default function SetupDashboard() {
           {s.steps.map((st, i) => (
             <StaggerItem key={st.id}>
               <Lift y={-3} scale={1.01}>
-                <Link href={`/onboarding?step=${st.id}`} className="surface flex items-center gap-4 rounded-[22px] p-4 transition-colors hover:bg-char">
+                <Link href={`/onboarding?step=${st.id}`} className="surface flex items-center gap-4 rounded-[10px] p-4 transition-colors hover:bg-char">
                   <span className={cx("grid size-11 shrink-0 place-items-center rounded-full text-sm font-semibold", st.done ? "bg-ok/15 text-ok" : st.skipped ? "bg-warn/15 text-warn" : "bg-char text-mute")}>{st.done ? <Icon icon={Tick02Icon} size={18} stroke={2.4} /> : i + 1}</span>
                   <span className="min-w-0 flex-1">
                     <span className="block text-[15px] font-semibold">{STEP_LABELS[st.id].label}</span>
@@ -163,10 +163,10 @@ export default function SetupDashboard() {
         </Stagger>
       </section>
 
-      <section className="relative overflow-hidden rounded-[32px]">
+      <section className="relative overflow-hidden rounded-[10px]">
         <div className="grid grid-cols-4 gap-2 sm:grid-cols-8" aria-hidden>
           {TEASE.map((p) => (
-            <Photo key={p} src={`/people/${p}.webp`} alt="" className="aspect-[3/4] w-full scale-105 rounded-[18px] blur-[6px] brightness-60" />
+            <Photo key={p} src={`/people/${p}.webp`} alt="" className="aspect-[3/4] w-full scale-105 rounded-[10px] blur-[6px] brightness-60" />
           ))}
         </div>
         <div className="absolute inset-0 grid place-items-center bg-gradient-to-t from-ink/90 via-ink/40 to-ink/30 p-6 text-center">

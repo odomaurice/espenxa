@@ -1,5 +1,5 @@
 /*
- * DEVELOPMENT ONLY. An in-browser implementation of the Meet API, stored in
+ * DEVELOPMENT ONLY. An in-browser implementation of the espenxa API, stored in
  * localStorage, so every screen can be built and reviewed before the
  * backend exists.
  *
@@ -280,11 +280,11 @@ const rulesOf = (b: MockBooking): BookingRules => b.rules ?? { commissionPct: cu
 
 const gatewayFor = (country: string): PaymentGateway => (PAYSTACK.has(country) ? "paystack" : "flutterwave");
 
-/** Meet's share is floored, so the companion never gets less than their percentage. */
+/** espenxa's share is floored, so the companion never gets less than their percentage. */
 const share = (amountMinor: number, pct: number) => Math.floor((amountMinor * pct) / 100);
 
 /**
- * The member pays the companion's price (plus tax once set). Meet's share
+ * The member pays the companion's price (plus tax once set). espenxa's share
  * comes out of what the companion earns; it is never added on top.
  */
 function breakdown(priceMinor: number, currency: string, country: string, commissionPct = currentRules().commissionPct) {
@@ -301,7 +301,7 @@ function tierFor(noticeHours: number, tiers: CancellationTier[]): CancellationTi
 }
 
 /**
- * A member cancellation, three ways. The companion's part is floored, Meet
+ * A member cancellation, three ways. The companion's part is floored, espenxa
  * takes its share of that part, and the refund gets the remainder, so the
  * three always add up to the price.
  */
@@ -346,7 +346,7 @@ function quote(db: MockDB, b: MockBooking, by: "member" | "companion", at = Date
     platform: m(a.platform),
     penalty: null,
     refundTo,
-    feesNote: `Meet keeps ${rules.commissionPct}% of what the companion receives, nothing more. Payment processing costs are covered by Meet.`,
+    feesNote: `espenxa keeps ${rules.commissionPct}% of what the companion receives, nothing more. Payment processing costs are covered by espenxa.`,
   };
 }
 
@@ -426,11 +426,11 @@ function validateRegister(db: MockDB, i: RegisterInput) {
   else if (Object.values(db.users).some((u) => u.account.email.toLowerCase() === i.email.toLowerCase())) fields.email = "An account with this email already exists.";
   if (!/^\+?\d{7,15}$/.test(i.phone.replace(/[\s-]/g, ""))) fields.phone = "Enter a valid phone number.";
   if (!PASSWORD_RULE.test(i.password)) fields.password = "Use at least 8 characters with letters and numbers.";
-  if (!i.dateOfBirth || ageFrom(i.dateOfBirth) < 18) fields.dateOfBirth = "You must be 18 or older to join Meet.";
-  if (!market(i.country)?.features.registration) fields.country = "Meet is not open for registration in this country yet.";
+  if (!i.dateOfBirth || ageFrom(i.dateOfBirth) < 18) fields.dateOfBirth = "You must be 18 or older to join espenxa.";
+  if (!market(i.country)?.features.registration) fields.country = "espenxa is not open for registration in this country yet.";
   if (!USERNAME_RULE.test(i.username.trim().toLowerCase())) fields.username = "3 to 20 characters: letters, numbers, dots or underscores.";
   else if (Object.values(db.users).some((u) => u.account.username === i.username.trim().toLowerCase())) fields.username = "That username is taken.";
-  if (i.role !== "member" && i.role !== "companion") fields.role = "Choose how you will use Meet.";
+  if (i.role !== "member" && i.role !== "companion") fields.role = "Choose how you will use espenxa.";
   if (i.otpChannel !== "email" && i.otpChannel !== "sms") fields.otpChannel = "Choose where to send your code.";
   else if (Object.values(db.users).some((u) => u.account.phone === i.phone.replace(/[s-]/g, ""))) fields.phone = "An account with this phone number already exists.";
   if (!i.acceptedTerms) fields.acceptedTerms = "You need to accept the terms to continue.";
@@ -642,7 +642,7 @@ function sendOtp(db: MockDB, u: MockUser): string {
   const code = String(Math.floor(100000 + Math.random() * 900000));
   u.private.otp = { code, exp: Date.now() + 10 * 60_000, sentAt: Date.now() };
   const to = u.account.otpChannel === "sms" ? u.account.phone : u.account.email;
-  db.outbox.unshift({ to, subject: u.account.otpChannel === "sms" ? "SMS" : "Your Meet code", body: `Your Meet code is ${code}. It expires in 10 minutes.`, at: now() });
+  db.outbox.unshift({ to, subject: u.account.otpChannel === "sms" ? "SMS" : "Your espenxa code", body: `Your espenxa code is ${code}. It expires in 10 minutes.`, at: now() });
   return to;
 }
 
@@ -650,7 +650,7 @@ function sendOtp(db: MockDB, u: MockUser): string {
 function active(db: MockDB): MockUser {
   const u = me(db);
   if (!u.account.contactVerified) throw new ApiError("forbidden", "Confirm your email or phone first.");
-  if (!u.account.onboarded) throw new ApiError("forbidden", "Finish setting up your account to use Meet.");
+  if (!u.account.onboarded) throw new ApiError("forbidden", "Finish setting up your account to use espenxa.");
   if (u.account.verification !== "verified") throw new ApiError("forbidden", "Your account is waiting for verification approval.");
   return u;
 }
@@ -931,7 +931,7 @@ function chatBetween(db: MockDB, a: ID, b: ID, source: "enquiry" | "booking") {
   return c;
 }
 
-/** A note from Meet in the pair's chat, e.g. "Ada requested a booking". */
+/** A note from espenxa in the pair's chat, e.g. "Ada requested a booking". */
 function chatNote(db: MockDB, b: MockBooking, by: ID, text: string) {
   const c = chatBetween(db, b.customerId, b.providerId, "booking");
   db.messages.push({ id: uid("m"), connectionId: c.id, senderId: by, body: text, at: now(), deliveredAt: now(), readAt: null, kind: "system", bookingId: b.id });
@@ -1019,7 +1019,7 @@ export const mockApi: MeetApi & { dev: { outbox(): Promise<MockDB["outbox"]>; re
         if (code.trim() !== o.code) throw new ApiError("validation", "That code is not right. Check it and try again.");
         u.private.otp = null;
         u.account.contactVerified = true;
-        notify(db, u.account.id, { kind: "account", title: `Welcome to Meet, ${u.profile.displayName}`, body: "Finish setting up your profile and verify your identity to start meeting people.", href: "/onboarding" });
+        notify(db, u.account.id, { kind: "account", title: `Welcome to espenxa, ${u.profile.displayName}`, body: "Finish setting up your profile and verify your identity to start meeting people.", href: "/onboarding" });
         return u.account;
       }, 500),
     resendOtp: (channel) =>
@@ -1042,7 +1042,7 @@ export const mockApi: MeetApi & { dev: { outbox(): Promise<MockDB["outbox"]>; re
         if (!u) return;
         const token = Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2);
         db.resetTokens.push({ token, userId: u.account.id, exp: Date.now() + 30 * 60_000 });
-        db.outbox.unshift({ to: u.account.email, subject: "Reset your Meet password", body: `/reset-password?token=${token}`, at: now() });
+        db.outbox.unshift({ to: u.account.email, subject: "Reset your espenxa password", body: `/reset-password?token=${token}`, at: now() });
       }),
     resetPassword: (token, password) =>
       run((db) => {
@@ -1552,7 +1552,7 @@ export const mockApi: MeetApi & { dev: { outbox(): Promise<MockDB["outbox"]>; re
         const code = String(Math.floor(100000 + Math.random() * 900000));
         db.payoutCodes[u.account.id] = { code, exp: Date.now() + 10 * 60_000 };
         const to = u.account.otpChannel === "sms" ? u.account.phone : u.account.email;
-        db.outbox.unshift({ to, subject: "Confirm your payout details", body: `Your Meet code is ${code}. Someone is changing where your earnings are paid. If this was not you, do not share this code.`, at: now() });
+        db.outbox.unshift({ to, subject: "Confirm your payout details", body: `Your espenxa code is ${code}. Someone is changing where your earnings are paid. If this was not you, do not share this code.`, at: now() });
         return { sentTo: to.replace(/^(.{2}).*(.{3})$/, "$1****$2") };
       }),
     setPayoutAccount: (input) =>
@@ -1584,7 +1584,7 @@ export const mockApi: MeetApi & { dev: { outbox(): Promise<MockDB["outbox"]>; re
         };
         db.payoutAccounts[u.account.id] = acc;
         const to = u.account.otpChannel === "sms" ? u.account.phone : u.account.email;
-        db.outbox.unshift({ to, subject: "Your payout details changed", body: `Earnings will now go to ${inst.name} ending ${acc.last4}${hold ? ` from ${new Date(acc.activeFrom).toUTCString()}` : ""}. If this was not you, contact Meet support now.`, at: now() });
+        db.outbox.unshift({ to, subject: "Your payout details changed", body: `Earnings will now go to ${inst.name} ending ${acc.last4}${hold ? ` from ${new Date(acc.activeFrom).toUTCString()}` : ""}. If this was not you, contact espenxa support now.`, at: now() });
         notify(db, u.account.id, { kind: "payment", title: existing ? "Payout details changed" : "Payout details saved", body: hold ? `For your safety, payouts to ${inst.name} ending ${acc.last4} start in ${hold} hours.` : `Earnings will go to ${inst.name} ending ${acc.last4}.`, href: "/companion/payouts" });
         return acc;
       }, 500),
@@ -1593,7 +1593,7 @@ export const mockApi: MeetApi & { dev: { outbox(): Promise<MockDB["outbox"]>; re
         const u = me(db);
         const acc = db.payoutAccounts[u.account.id];
         if (!acc) conflict("Add your payout details first.");
-        if (acc.check === "pending_review") conflict("Meet is still checking your payout details.");
+        if (acc.check === "pending_review") conflict("espenxa is still checking your payout details.");
         if (acc.check === "rejected") conflict("We could not confirm your payout details. Please add them again.");
         if (new Date(acc.activeFrom).getTime() > Date.now()) conflict("Your new payout details are still in their safety wait.");
         if (!market(u.account.country)?.features.payouts) conflict("Payouts are not open in your country yet.");
@@ -1982,7 +1982,7 @@ export const mockApi: MeetApi & { dev: { outbox(): Promise<MockDB["outbox"]>; re
         notify(db, userId, {
           kind: "verification",
           title: decision === "approve" ? "You are verified" : decision === "reject" ? "Verification not approved" : "We need a little more",
-          body: decision === "approve" ? "Your account is approved. Welcome to Meet." : note.trim(),
+          body: decision === "approve" ? "Your account is approved. Welcome to espenxa." : note.trim(),
           href: decision === "approve" ? "/home" : "/onboarding?step=id_document",
         });
         audit(db, actor, decision === "approve" ? "Verification approved" : decision === "reject" ? "Verification rejected" : "More information requested", `@${u.account.username}`, note.trim() || "Documents match");
@@ -2052,17 +2052,17 @@ export const mockApi: MeetApi & { dev: { outbox(): Promise<MockDB["outbox"]>; re
           b.refundMinor = paid ? b.priceMinor : 0;
           b.compensationMinor = 0;
           b.payoutHeld = false;
-          b.events.push({ at: now(), label: `Cancelled by Meet${paid ? ". Full refund initiated" : ""}. The companion is not penalised`, actor: "staff" });
-          tell("Booking cancelled by Meet", `Booking ${b.reference} was cancelled by our team.${paid ? " A full refund has been initiated." : ""}`);
+          b.events.push({ at: now(), label: `Cancelled by espenxa${paid ? ". Full refund initiated" : ""}. The companion is not penalised`, actor: "staff" });
+          tell("Booking cancelled by espenxa", `Booking ${b.reference} was cancelled by our team.${paid ? " A full refund has been initiated." : ""}`);
           audit(db, actor, "Booking cancelled", b.reference, reason.trim());
         } else if (action.type === "hold_payout") {
           b.payoutHeld = true;
-          b.events.push({ at: now(), label: "Payout put on hold by Meet", actor: "staff" });
+          b.events.push({ at: now(), label: "Payout put on hold by espenxa", actor: "staff" });
           audit(db, actor, "Payout held", b.reference, reason.trim());
         } else {
           if (b.status === "disputed") conflict("Resolve the dispute to release this payout.");
           b.payoutHeld = false;
-          b.events.push({ at: now(), label: "Payout hold released by Meet", actor: "staff" });
+          b.events.push({ at: now(), label: "Payout hold released by espenxa", actor: "staff" });
           audit(db, actor, "Payout released", b.reference, reason.trim());
         }
         return adminBooking(db, b);
@@ -2080,7 +2080,7 @@ export const mockApi: MeetApi & { dev: { outbox(): Promise<MockDB["outbox"]>; re
         b.refundMinor = b.priceMinor - hostShare;
         b.status = r.refundPct === 100 ? "platform_cancelled" : "completed";
         b.payoutHeld = false;
-        b.events.push({ at: now(), label: `Dispute resolved by Meet: ${r.refundPct}% refunded to the member, ${100 - r.refundPct}% to the companion`, actor: "staff" });
+        b.events.push({ at: now(), label: `Dispute resolved by espenxa: ${r.refundPct}% refunded to the member, ${100 - r.refundPct}% to the companion`, actor: "staff" });
         d.status = "resolved";
         d.resolution = r.note.trim();
         const pr = db.users[b.providerId].provider;
@@ -2123,7 +2123,7 @@ export const mockApi: MeetApi & { dev: { outbox(): Promise<MockDB["outbox"]>; re
           if (b.compensationMinor) ledger.push({ id: `lc_${b.id}`, at: last, kind: "compensation", bookingRef: b.reference, party: handle(db, b.providerId), amount: { amountMinor: b.compensationMinor, currency: b.currency }, status: "available" });
           const st = settlementOf(db, b);
           if (b.status === "completed" && st) ledger.push({ id: `le_${b.id}`, at: last, kind: "host_earning", bookingRef: b.reference, party: handle(db, b.providerId), amount: st.companion, status: b.payoutHeld ? "on hold" : "available" });
-          if (st?.platform.amountMinor) ledger.push({ id: `lf_${b.id}`, at: last, kind: "platform_fee", bookingRef: b.reference, party: "Meet", amount: st.platform, status: `${rulesOf(b).commissionPct}% share` });
+          if (st?.platform.amountMinor) ledger.push({ id: `lf_${b.id}`, at: last, kind: "platform_fee", bookingRef: b.reference, party: "espenxa", amount: st.platform, status: `${rulesOf(b).commissionPct}% share` });
           if (b.penaltyMinor) ledger.push({ id: `ln_${b.id}`, at: last, kind: "penalty", bookingRef: b.reference, party: handle(db, b.providerId), amount: { amountMinor: b.penaltyMinor, currency: b.currency }, status: "from next payout" });
         }
         for (const p of db.payouts) ledger.push({ id: `lo_${p.id}`, at: p.at, kind: "payout", bookingRef: "", party: handle(db, p.userId), amount: { amountMinor: p.amountMinor, currency: p.currency }, status: `${p.status} (simulated)` });
@@ -2162,7 +2162,7 @@ export const mockApi: MeetApi & { dev: { outbox(): Promise<MockDB["outbox"]>; re
         const target = user(db, r.targetId);
         r.status = action === "dismiss" ? "dismissed" : "actioned";
         r.resolution = note.trim();
-        if (action === "warn") notify(db, r.targetId, { kind: "security", title: "A warning from Meet", body: note.trim(), href: "/community-rules" });
+        if (action === "warn") notify(db, r.targetId, { kind: "security", title: "A warning from espenxa", body: note.trim(), href: "/community-rules" });
         if (action === "suspend") {
           if (target.account.roles.length) throw new ApiError("forbidden", "Staff accounts are managed separately.");
           target.account.verification = "suspended";
@@ -2252,7 +2252,7 @@ export const mockApi: MeetApi & { dev: { outbox(): Promise<MockDB["outbox"]>; re
         if (!actor.account.roles.some((r) => r === "super_admin" || r === "finance")) throw new ApiError("forbidden", "Only a Super Administrator or Finance team member can change money rules.");
         if (reason.trim().length < 5) throw new ApiError("validation", "Record a reason for this change.");
         const pctOk = (n: number, max = 100) => Number.isInteger(n) && n >= 0 && n <= max;
-        if (!pctOk(patch.commissionPct, 50)) throw new ApiError("validation", "Meet's share must be a whole number from 0 to 50.");
+        if (!pctOk(patch.commissionPct, 50)) throw new ApiError("validation", "espenxa's share must be a whole number from 0 to 50.");
         const t = [...patch.tiers].sort((a, b) => b.minHours - a.minHours);
         if (!t.length || t[t.length - 1].minHours !== 0) throw new ApiError("validation", "The last cancellation step must start at 0 hours.");
         if (t.some((x) => !pctOk(x.refundPct) || x.refundPct + x.compensationPct !== 100)) throw new ApiError("validation", "Each step must split 100% between refund and companion.");
@@ -2287,7 +2287,7 @@ export const mockApi: MeetApi & { dev: { outbox(): Promise<MockDB["outbox"]>; re
         const u = me(db);
         if (!statusOf(u).complete) throw new ApiError("conflict", "Finish every step first.");
         u.account.verification = "verified";
-        notify(db, u.account.id, { kind: "verification", title: "You are verified", body: "Your account is approved. Welcome to Meet.", href: "/home" });
+        notify(db, u.account.id, { kind: "verification", title: "You are verified", body: "Your account is approved. Welcome to espenxa.", href: "/home" });
       }),
     reset: async () => {
       resetMockData();

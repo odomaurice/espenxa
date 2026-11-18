@@ -1,5 +1,5 @@
 /*
- * Meet API contract, as the frontend consumes it.
+ * espenxa API contract, as the frontend consumes it.
  *
  * The backend owns every rule behind these shapes: prices, fees, refunds,
  * compensation, ranking, payout eligibility, verification and market
@@ -57,7 +57,7 @@ export type StaffRole =
   | "finance"
   | "verification_officer";
 
-/** Why someone is on Meet. Not every reason is romantic. */
+/** Why someone is on espenxa. Not every reason is romantic. */
 export type Intention =
   | "dating"
   | "friendship"
@@ -81,7 +81,7 @@ export type PrivacySettings = {
 };
 
 /**
- * How someone uses Meet. Members discover, connect and book. Companions are
+ * How someone uses espenxa. Members discover, connect and book. Companions are
  * members who also offer experiences (the spec's "providers").
  */
 export type AccountRole = "member" | "companion";
@@ -107,7 +107,7 @@ export type Account = {
   verification: VerificationStatus;
   roles: StaffRole[];
   isProvider: boolean;
-  /** Every onboarding step is complete (steps can be skipped, but must be finished to use Meet). */
+  /** Every onboarding step is complete (steps can be skipped, but must be finished to use espenxa). */
   onboarded: boolean;
   createdAt: ISODate;
 };
@@ -224,7 +224,7 @@ export type Category = {
   active: boolean;
 };
 
-/** The six booking durations Meet always offers. */
+/** The six booking durations espenxa always offers. */
 export const DURATIONS = [1, 2, 4, 8, 24, 48] as const;
 export type DurationHours = (typeof DURATIONS)[number];
 
@@ -349,7 +349,7 @@ export type ConnectionRequest = {
 };
 
 /**
- * A chat message. `kind: "system"` is a note from Meet in the thread, e.g.
+ * A chat message. `kind: "system"` is a note from espenxa in the thread, e.g.
  * a booking request; `bookingId` links it. Delivery and read times drive the
  * ticks (one grey: sent, two grey: delivered, two blue: read).
  */
@@ -402,7 +402,7 @@ export type PaymentGateway = "paystack" | "flutterwave";
  * a copy of the rules it was made under, so a change only affects new bookings.
  */
 export type MoneyRules = {
-  /** Meet's share of whatever the companion earns, in percent (completed bookings and cancellation compensation). */
+  /** espenxa's share of whatever the companion earns, in percent (completed bookings and cancellation compensation). */
   commissionPct: number;
   /** How a paid booking is split when the member cancels, by notice. Percentages of the price. */
   tiers: CancellationTier[];
@@ -458,7 +458,7 @@ export type Booking = {
   policy: CancellationPolicy;
   /** The money rules this booking was made under. */
   rules: BookingRules;
-  /** What the companion receives for a completed booking, after Meet's share. */
+  /** What the companion receives for a completed booking, after espenxa's share. */
   companionShare: Money;
   /** How the member paid. Refunds always go back to this. */
   payment: { method: string; gateway: PaymentGateway } | null;
@@ -488,9 +488,9 @@ export type CancellationQuote = {
   tier: CancellationTier;
   /** Back to the member, to the method they paid with. */
   refund: Money;
-  /** To the companion, after Meet's share. */
+  /** To the companion, after espenxa's share. */
   compensation: Money;
-  /** Meet's share of the compensation. */
+  /** espenxa's share of the compensation. */
   platform: Money;
   /** Companion cancelling late: taken from their next payout. */
   penalty: Money | null;
@@ -573,8 +573,8 @@ export type PayoutAccount = {
   gateway: PaymentGateway;
   /**
    * "verified": the bank confirmed the name and it matches the verified ID.
-   * "pending_review": entered by hand; Meet checks it before money is sent.
-   * "rejected": Meet could not confirm it; the companion must add other details.
+   * "pending_review": entered by hand; espenxa checks it before money is sent.
+   * "rejected": espenxa could not confirm it; the companion must add other details.
    */
   check: "verified" | "pending_review" | "rejected";
   /** Money can be sent from this time; new or changed details wait first. */

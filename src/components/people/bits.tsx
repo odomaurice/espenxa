@@ -84,8 +84,8 @@ export function MatchDialog({ person, connectionId, onClose }: { person: Profile
       {person && (
         <div className="text-center">
           <div className="relative mx-auto flex h-40 w-64 items-center justify-center">
-            <Photo src={me.data?.photos[0] ?? ""} alt="" className="absolute left-4 h-36 w-28 -rotate-8 rounded-[24px] ring-4 ring-coal" />
-            <Photo src={person.photos[0]} alt="" className="absolute right-4 h-36 w-28 rotate-8 rounded-[24px] ring-4 ring-coal" />
+            <Photo src={me.data?.photos[0] ?? ""} alt="" className="absolute left-4 h-36 w-28 -rotate-8 rounded-[10px] ring-4 ring-coal" />
+            <Photo src={person.photos[0]} alt="" className="absolute right-4 h-36 w-28 rotate-8 rounded-[10px] ring-4 ring-coal" />
             <span className="relative grid size-14 place-items-center rounded-full bg-ember text-ink ring-4 ring-coal">
               <Icon icon={FavouriteIcon} size={24} stroke={2.4} />
             </span>

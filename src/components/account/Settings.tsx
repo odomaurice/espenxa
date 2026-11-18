@@ -116,10 +116,10 @@ function Trusted() {
         }
       />
       <div className="space-y-3 px-6 pb-6">
-        {list.data?.length === 0 && !adding && <p className="rounded-[20px] bg-char px-4 py-5 text-center text-sm text-mute">No trusted contacts yet. Add a friend or family member you trust.</p>}
+        {list.data?.length === 0 && !adding && <p className="rounded-[10px] bg-char px-4 py-5 text-center text-sm text-mute">No trusted contacts yet. Add a friend or family member you trust.</p>}
         <AnimatePresence initial={false}>
           {list.data?.map((c) => (
-            <motion.div key={c.id} layout initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, x: 30 }} className="flex items-center gap-4 rounded-[20px] bg-char p-4">
+            <motion.div key={c.id} layout initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, x: 30 }} className="flex items-center gap-4 rounded-[10px] bg-char p-4">
               <span className="grid size-11 place-items-center rounded-full bg-ok/15 text-ok">
                 <Icon icon={Call02Icon} size={18} />
               </span>
@@ -161,7 +161,7 @@ function Trusted() {
                 }
               }}
             >
-              <div className="grid gap-4 rounded-[20px] bg-char/60 p-4 sm:grid-cols-3">
+              <div className="grid gap-4 rounded-[10px] bg-char/60 p-4 sm:grid-cols-3">
                 {err && <Notice tone="bad" className="sm:col-span-3">{err}</Notice>}
                 <Field label="Name">{(id) => <Input id={id} value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />}</Field>
                 <Field label="Phone">{(id) => <Input id={id} type="tel" placeholder="+234…" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />}</Field>
@@ -197,7 +197,7 @@ function Account() {
     <Panel>
       <PanelHeader title="Account" />
       <div className="px-6 pb-6">
-        <dl className="divide-y divide-line rounded-[20px] bg-char">
+        <dl className="divide-y divide-line rounded-[10px] bg-char">
           {rows.map(([k, val]) => (
             <div key={k} className="flex items-center justify-between gap-4 px-4 py-3.5 text-[14.5px]">
               <dt className="text-mute">{k}</dt>
@@ -213,7 +213,7 @@ function Account() {
             <Icon icon={Logout03Icon} size={16} /> Sign out
           </button>
         </div>
-        <div className="mt-8 rounded-[20px] bg-bad/8 p-5">
+        <div className="mt-8 rounded-[10px] bg-bad/8 p-5">
           <p className="font-semibold text-bad">Delete account</p>
           <p className="mt-1 text-sm text-mute">Permanently remove your profile, connections and messages. Booking and payment records are kept as the law requires.</p>
           {deleteNote && <Notice tone="warn" className="mt-4">Account deletion is not connected yet. Contact support to delete your account.</Notice>}

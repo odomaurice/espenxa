@@ -126,7 +126,7 @@ export default function RegisterForm({ intro }: { intro?: string }) {
         {formError && <Notice tone="bad">{formError}</Notice>}
 
         <fieldset>
-          <legend className="mb-2 px-1 text-[13px] font-medium text-cream/90">How will you use Meet?</legend>
+          <legend className="mb-2 px-1 text-[13px] font-medium text-cream/90">How will you use espenxa?</legend>
           <div className="grid gap-2.5 sm:grid-cols-2">
             {ACCOUNT_ROLES.map((r) => {
               const on = v.role === r.id;
@@ -137,7 +137,7 @@ export default function RegisterForm({ intro }: { intro?: string }) {
                   aria-pressed={on}
                   onClick={() => set("role", r.id)}
                   whileTap={{ scale: 0.98 }}
-                  className={cx("relative overflow-hidden rounded-[22px] p-4 text-left transition-colors", on ? "bg-cream text-ink" : "bg-char hover:bg-smoke")}
+                  className={cx("relative overflow-hidden rounded-[10px] p-4 text-left transition-colors", on ? "bg-cream text-ink" : "bg-char hover:bg-smoke")}
                 >
                   <span className={cx("grid size-10 place-items-center rounded-full", on ? "bg-ember text-ink" : "bg-smoke text-cream")}>
                     <Icon icon={r.id === "companion" ? Store01Icon : UserCircleIcon} size={20} stroke={2} />
@@ -161,7 +161,7 @@ export default function RegisterForm({ intro }: { intro?: string }) {
           {(id, d) => <Input id={id} aria-describedby={d} aria-invalid={!!errors.fullName} autoComplete="name" value={v.fullName} onChange={(e) => set("fullName", e.target.value)} />}
         </Field>
 
-        <Field label="Username" hint="What people will call you on Meet." error={errors.username}>
+        <Field label="Username" hint="What people will call you on espenxa." error={errors.username}>
           {(id, d) => (
             <div className="relative">
               <span className="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-[15px] text-faint">@</span>
@@ -260,7 +260,7 @@ export default function RegisterForm({ intro }: { intro?: string }) {
         </Field>
 
         <div className="space-y-1.5">
-          <label className={cx("flex cursor-pointer gap-3 rounded-[20px] bg-char p-4 text-[13px] leading-relaxed text-mute", errors.acceptedTerms && "ring-2 ring-bad/60")}>
+          <label className={cx("flex cursor-pointer gap-3 rounded-[10px] bg-char p-4 text-[13px] leading-relaxed text-mute", errors.acceptedTerms && "ring-2 ring-bad/60")}>
             <input type="checkbox" className="mt-0.5 size-4 shrink-0 accent-ember" checked={v.acceptedTerms} onChange={(e) => set("acceptedTerms", e.target.checked)} />
             <span>
               I am {SITE.minAge} or older and accept the <span className="text-cream">Terms</span>, <span className="text-cream">Privacy Policy</span> and{" "}

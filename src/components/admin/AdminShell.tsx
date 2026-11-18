@@ -104,7 +104,7 @@ export default function AdminShell({ children }: { children: ReactNode }) {
   if (!account.roles.length)
     return (
       <div className="grid min-h-dvh place-items-center p-6">
-        <EmptyState icon={CheckmarkBadge01Icon} title="Staff only" body="This area is for the Meet team." action={<LinkButton href="/">Go to the homepage</LinkButton>} />
+        <EmptyState icon={CheckmarkBadge01Icon} title="Staff only" body="This area is for the espenxa team." action={<LinkButton href="/">Go to the homepage</LinkButton>} />
       </div>
     );
   const items = NAV.filter((n) => !n.perm || staffCan(account.roles, n.perm));
@@ -112,10 +112,10 @@ export default function AdminShell({ children }: { children: ReactNode }) {
   const current = NAV.find((n) => n.perm && !staffCan(account.roles, n.perm) && path.startsWith(n.href));
 
   return (
-    <div className="flex min-h-dvh">
+    <div className="on-dark flex min-h-dvh bg-ink text-cream">
       <aside className="sticky top-0 hidden h-dvh w-65 shrink-0 flex-col bg-coal/60 px-5 py-7 lg:flex">
         <div className="px-3">
-          <Wordmark href="/admin" height={24} />
+          <Wordmark href="/admin" kind="light" height={22} />
           <p className="mt-2 text-xs text-mute">Staff console</p>
         </div>
         <nav className="mt-9 flex flex-1 flex-col gap-1">
@@ -142,7 +142,7 @@ export default function AdminShell({ children }: { children: ReactNode }) {
       </aside>
       <div className="min-w-0 flex-1">
         <header className="sticky top-0 z-30 flex h-16 items-center justify-between gap-3 bg-ink/90 px-4 backdrop-blur-xl lg:hidden">
-          <Wordmark href="/admin" height={20} />
+          <Wordmark href="/admin" kind="light" height={18} />
           <button type="button" onClick={() => setMenu(true)} aria-expanded={menu} className="flex h-10 items-center gap-2 rounded-full bg-char pr-4 pl-3 text-sm font-semibold">
             <Icon icon={active?.icon ?? Menu01Icon} size={17} /> {active?.label ?? "Menu"}
             <Icon icon={ArrowDown01Icon} size={14} className="text-mute" />

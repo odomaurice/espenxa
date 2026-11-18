@@ -34,7 +34,7 @@ export default function BookingList() {
     <div>
       <PageHeader
         title="Bookings"
-        sub="Experiences you have requested or booked. Payment is always through Meet."
+        sub="Experiences you have requested or booked. Payment is always through espenxa."
         actions={
           account?.isProvider && (
             <Tabs
@@ -83,7 +83,7 @@ export default function BookingList() {
               return (
                 <li key={b.id}>
                   <Lift y={-3} scale={1.01}>
-                    <Link href={`/bookings/${b.id}`} className="surface block rounded-[26px] p-4 transition-colors hover:bg-char sm:p-5">
+                    <Link href={`/bookings/${b.id}`} className="surface block rounded-[10px] p-4 transition-colors hover:bg-char sm:p-5">
                       <div className="flex items-center gap-4">
                         <Avatar src={other.photo} name={other.displayName} size={48} />
                         <div className="min-w-0 flex-1">

@@ -87,7 +87,7 @@ export default function Notifications() {
             .map(([label, items]) => (
               <section key={label}>
                 <h2 className="mb-3 px-1 text-sm font-medium text-mute">{label}</h2>
-                <ul className="surface divide-y divide-line overflow-hidden rounded-[24px]">
+                <ul className="surface divide-y divide-line overflow-hidden rounded-[10px]">
                   {items.map((n, i) => {
                     const k = KIND[n.kind];
                     const body = (

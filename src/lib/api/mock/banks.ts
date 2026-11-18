@@ -5,7 +5,7 @@
  * from the payment partner (Paystack: GET /bank?country=..., Flutterwave:
  * GET /v3/banks/{country}) and caches it, so new banks appear without a
  * release. This list only stands in for that call. Anything missing can be
- * entered by hand ("My bank is not listed"), which Meet then checks.
+ * entered by hand ("My bank is not listed"), which espenxa then checks.
  */
 export const BANKS: Record<string, string[]> = {
   NG: [

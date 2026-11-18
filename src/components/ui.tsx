@@ -1,7 +1,7 @@
 "use client";
 
 /*
- * Meet design-system primitives. Soft, large radii; filled surfaces instead
+ * espenxa design-system primitives. Soft, large radii; filled surfaces instead
  * of outlines; white for the active state; ember for the one action that
  * matters on a screen.
  */
@@ -34,22 +34,22 @@ type Variant = "primary" | "accent" | "secondary" | "ghost" | "danger" | "quiet"
 type Size = "sm" | "md" | "lg";
 
 const VARIANTS: Record<Variant, string> = {
-  primary: "bg-cream text-ink hover:bg-white font-semibold",
-  accent: "bg-ember text-ink hover:bg-ember-hi font-semibold shadow-[0_8px_24px_-8px_rgb(255_90_54/0.6)]",
-  secondary: "bg-char text-cream hover:bg-smoke font-medium",
+  primary: "bg-cream text-ink hover:bg-cream/85 font-medium",
+  accent: "bg-ember text-ink hover:bg-ember-hi font-medium",
+  secondary: "bg-transparent text-cream shadow-[inset_0_0_0_1px_var(--color-cream)] hover:bg-cream hover:text-ink font-medium",
   ghost: "text-cream hover:bg-char font-medium",
-  danger: "bg-bad/12 text-bad hover:bg-bad/20 font-medium",
+  danger: "bg-transparent text-bad shadow-[inset_0_0_0_1px_var(--color-bad)] hover:bg-bad/8 font-medium",
   quiet: "text-mute hover:text-cream font-medium",
 };
 const SIZES: Record<Size, string> = {
-  sm: "h-9 px-4 text-[13px] gap-1.5",
-  md: "h-11 px-5 text-sm gap-2",
-  lg: "h-13 px-7 text-[15px] gap-2",
+  sm: "h-9 px-4 text-[12px] gap-1.5",
+  md: "h-11 px-6 text-[13px] gap-2",
+  lg: "h-12 px-7 text-[13.5px] gap-2",
 };
 
 export function buttonClass(variant: Variant = "primary", size: Size = "md", extra?: string) {
   return cx(
-    "inline-flex shrink-0 items-center justify-center rounded-full whitespace-nowrap transition-all active:scale-[0.98] disabled:pointer-events-none disabled:opacity-40",
+    "inline-flex shrink-0 items-center justify-center rounded-full uppercase tracking-[0.02em] whitespace-nowrap transition-all active:scale-[0.98] disabled:pointer-events-none disabled:opacity-40",
     VARIANTS[variant],
     SIZES[size],
     extra,
@@ -93,7 +93,7 @@ export function IconButton({
     plain: "text-mute hover:bg-char hover:text-cream",
     filled: "bg-char text-cream hover:bg-smoke",
     glass: "glass-dark text-cream hover:bg-black/60",
-    white: "bg-cream text-ink hover:bg-white",
+    white: "bg-cream text-ink hover:bg-cream/85",
     accent: "bg-ember text-ink hover:bg-ember-hi",
   };
   return (
@@ -291,13 +291,13 @@ export function Avatar({ src, name, size = 40, ring, className }: { src?: string
 }
 
 /** A user photo. Plain img: sources can be local files or data URLs from uploads. */
-export function Photo({ src, alt, className }: { src: string; alt: string; className?: string }) {
+export function Photo({ src, alt, className, focus }: { src: string; alt: string; className?: string; focus?: string }) {
   // eslint-disable-next-line @next/next/no-img-element -- see above
-  return <img src={src} alt={alt} className={cx("object-cover", className)} draggable={false} />;
+  return <img src={src} alt={alt} className={cx("object-cover", className)} style={focus ? { objectPosition: focus } : undefined} draggable={false} />;
 }
 
 export function Panel({ children, className, as: As = "section" }: { children: ReactNode; className?: string; as?: "section" | "div" | "article" }) {
-  return <As className={cx("surface rounded-[24px]", className)}>{children}</As>;
+  return <As className={cx("surface rounded-[10px]", className)}>{children}</As>;
 }
 
 export function PanelHeader({ title, sub, action }: { title: ReactNode; sub?: ReactNode; action?: ReactNode }) {
@@ -348,7 +348,7 @@ export function Tabs<T extends string>({ value, onChange, items, className }: { 
             onClick={() => onChange(t.id)}
             className={cx("relative inline-flex h-10 shrink-0 items-center gap-2 rounded-full px-3.5 text-[13.5px] font-medium transition-colors duration-300 sm:px-5 sm:text-sm", on ? "text-ink" : "text-mute hover:text-cream")}
           >
-            {on && <motion.span layoutId={`tab-${group}`} className="absolute inset-0 rounded-full bg-cream shadow-[0_6px_20px_-6px_rgb(255_255_255/0.35)]" transition={{ type: "spring", stiffness: 420, damping: 34 }} />}
+            {on && <motion.span layoutId={`tab-${group}`} className="absolute inset-0 rounded-full bg-cream" transition={{ type: "spring", stiffness: 420, damping: 34 }} />}
             <span className="relative flex items-center gap-1.5 sm:gap-2">
               {t.icon && (
                 <span className={cx(!on && "max-[400px]:hidden")}>
@@ -366,7 +366,7 @@ export function Tabs<T extends string>({ value, onChange, items, className }: { 
 }
 
 export function Skeleton({ className }: { className?: string }) {
-  return <div className={cx("animate-pulse rounded-[20px] bg-char", className)} aria-hidden />;
+  return <div className={cx("animate-pulse rounded-[10px] bg-char", className)} aria-hidden />;
 }
 
 export function EmptyState({ icon, title, body, action }: { icon: IconSvgElement; title: string; body: ReactNode; action?: ReactNode }) {
@@ -430,7 +430,7 @@ export function DevNote({ children }: { children: ReactNode }) {
 
 export function Stat({ label, value, sub, className }: { label: string; value: ReactNode; sub?: ReactNode; className?: string }) {
   return (
-    <div className={cx("surface rounded-[24px] p-5", className)}>
+    <div className={cx("surface rounded-[10px] p-5", className)}>
       <p className="text-[13px] text-mute">{label}</p>
       <p className="display mt-3 text-3xl tabular">{value}</p>
       {sub && <p className="mt-1 text-xs text-mute">{sub}</p>}
@@ -457,7 +457,7 @@ export function Dialog({ open, onClose, title, children, wide }: { open: boolean
         if (e.target === ref.current) onClose();
       }}
       className={cx(
-        "m-0 mt-auto w-full max-w-none rounded-t-[28px] bg-coal p-0 text-cream backdrop:bg-black/70 backdrop:backdrop-blur-sm sm:m-auto sm:rounded-[28px]",
+        "m-0 mt-auto w-full max-w-none rounded-t-[16px] bg-coal p-0 text-cream backdrop:bg-black/70 backdrop:backdrop-blur-sm sm:m-auto sm:rounded-[10px]",
         wide ? "sm:max-w-2xl" : "sm:max-w-md",
       )}
     >
